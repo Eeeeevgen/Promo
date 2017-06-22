@@ -36,8 +36,18 @@ gem 'bcrypt',               '3.1.7'
 gem 'authlogic'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
+# gem 'jquery-ui-rails'
+
 gem 'redis'
 gem 'redis-namespace'
+
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-vkontakte'
+
+gem 'carrierwave', '~> 1.0'
+gem 'mini_magick', '~> 4.3'
+
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
