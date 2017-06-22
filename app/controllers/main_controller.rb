@@ -1,9 +1,9 @@
 class MainController < ApplicationController
   def index
-    puts '111'
-    puts Image.last.image.url
-    puts '222'
-    @image = Image.last.image.url
+    # puts '111'
+    # puts Image.last.image.url
+    # puts '222'
+    @image = Image.last && Image.last.image.url
   end
 
   def image
@@ -15,7 +15,7 @@ class MainController < ApplicationController
     # puts p.image.url # => '/url/to/file.png'
     # puts p.image.current_path # => 'path/to/file.png'
     # puts p.image_identifier # => 'file.png'
-    @image = Image.last.image.url
+    @image = Image.last && Image.last.image.url
     render :index
   end
 end
