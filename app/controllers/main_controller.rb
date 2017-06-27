@@ -18,4 +18,8 @@ class MainController < ApplicationController
     @image = Image.last && Image.last.image.url
     render :index
   end
+
+  def test
+    # @user = User.find(session[:user_id])
+  end
 end

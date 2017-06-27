@@ -10,18 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170622121036) do
+ActiveRecord::Schema.define(version: 20170627084334) do
+
+  create_table "authorizations", force: :cascade do |t|
+    t.string "provider"
+    t.string "uid"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "images", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "image"
-  end
-
-  create_table "pictures", force: :cascade do |t|
-    t.string "picture"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -32,7 +34,6 @@ ActiveRecord::Schema.define(version: 20170622121036) do
     t.string "persistence_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "avatar"
   end
 
 end

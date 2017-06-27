@@ -1,0 +1,15 @@
+nav.navbar.navbar-default.navbar-fixed-top
+  .container
+    #myNavbar.collapse.navbar-collapse
+      ul.nav.navbar-nav.navbar-right
+        li
+          = link_to "Test", '/test'
+        li
+          = link_to "Home", root_path
+        - if session[:user_id]
+          li
+            = link_to "Logout", :logout
+        - else
+          li = link_to "Sign In", :sign_up
+          li
+            = link_to "Login", '/auth/facebook'

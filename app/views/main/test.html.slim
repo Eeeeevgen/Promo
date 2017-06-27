@@ -1,0 +1,6 @@
+p 'Test page'
+p
+  - if current_user
+    =current_user.name
+  - else
+    = 'No user'
