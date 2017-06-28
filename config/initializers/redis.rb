@@ -1,0 +1,1 @@
+$redis = Redis::Namespace.new("ratings", :redis => Redis.new)

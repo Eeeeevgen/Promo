@@ -1,11 +1,45 @@
-p
-  | session_id =
-  = session["user_id"]
+h1 Top
 
-p
-  | current_session =
-  = current_user_session
+= will_paginate @images
+br
+- if @images
 
-p
-  | current_user =
-  = current_user
+  div.row.row-centered
+    - if @images.length > 0
+      div.thumbnail.thumbnail-col
+        div.image_container
+          = image_tag @images[0].image.url
+        div.caption
+          p Link!
+    - if @images.length > 1
+      div.thumbnail.thumbnail-col
+        div.image_container
+          = image_tag @images[1].image.url
+        div.caption
+          p Link!
+    - if @images.length > 2
+      div.thumbnail.thumbnail-col
+        div.image_container
+          = image_tag @images[2].image.url
+        div.caption
+          p Link!
+
+  div.row.row-centered
+    - if @images.length > 3
+      div.thumbnail.thumbnail-col
+        div.image_container
+          = image_tag @images[3].image.url
+        div.caption
+          p Link!
+    - if @images.length > 4
+      div.thumbnail.thumbnail-col
+        div.image_container
+          = image_tag @images[4].image.url
+        div.caption
+          p Link
+    - if @images.length > 5
+      div.thumbnail.thumbnail-col
+        div.image_container
+          = image_tag @images[5].image.url
+        div.caption
+          p Link!

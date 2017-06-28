@@ -4,7 +4,7 @@ Rails.application.routes.draw do
 
   root "main#index"
 
-  post "/image" => "images#new"
+  post "/image" => "users#show"
 
   get "/test" => "main#test"
 
@@ -16,8 +16,8 @@ Rails.application.routes.draw do
   get '/register' => 'users#new', as: :register
   post '/register' => 'users#create', as: :register_post
 
-  get 'users/:id/edit' => 'users#edit'
-  patch 'users/:id/edit' => 'users#update'
+  get '/users/:id/edit' => 'users#edit'
+  patch '/users/:id/edit' => 'users#update'
 
   match '/auth/:provider/callback' => 'sessions#create', via: :all
   match '/auth/failure' => 'sessions#failure', via: :all

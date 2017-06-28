@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  attr_accessor :password, :password_confirmation
+
   def new
     @user = User.new
   end
@@ -15,8 +17,14 @@ class UsersController < ApplicationController
   end
 
   def show
+    if request.post?
+      i = current_user.images.new
+      i.image = params[:image]
+      i.save!
+      redirect_to user_path(current_user)
+    end
     @image = Image.last && Image.last.image.url
-    # @image = current_user.images
+    @images = current_user.images.paginate(page: params[:page], :per_page => 6)
   end
 
   private

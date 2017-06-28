@@ -42,7 +42,6 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    session[:user_id] = nil
     if current_user_session
       current_user_session.destroy
       flash[:success] = "Goodbye!"
@@ -54,6 +53,6 @@ class SessionsController < ApplicationController
   private
 
     def user_session_params
-      params.require(:user_session).permit(:email, :password, :remember_me, :test)
+      params.require(:user_session).permit(:email, :password, :remember_me)
     end
 end

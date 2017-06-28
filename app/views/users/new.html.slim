@@ -1,9 +1,9 @@
-- provide(:title, 'Sign up')
+- provide(:title, 'Register')
 h1
-  | Sign up
+  | Register new user
 .row
   .col-md-6.col-md-offset-3
-    = form_for @user, url: :sign_up_post do |f|
+    = form_for @user, url: :register_post do |f|
       = render 'shared/error_messages', object: @user
       = f.label :name
       = f.text_field :name, class: 'form-control', placeholder: "Your public name"
@@ -14,12 +14,3 @@ h1
       = f.label :password_confirmation, "Confirmation"
       = f.password_field :password_confirmation, class: 'form-control'
       = f.submit "Register", class: "btn btn-primary"
-
-.row.row-centered
-  .col-md-6.col-md-offset-3
-    div class="share"
-      b Enter via socail networks:
-      br
-      a class="social social-vk" href="/auth/vkontakte"
-      a class="social social-fb" href="/auth/facebook"
-      a class="social social-gp" href="/auth/google"

@@ -4,7 +4,7 @@ class User < ApplicationRecord
     c.validate_email_field = true
     c.validate_login_field = false
     c.ignore_blank_passwords  = true
-    c.validate_password_field = false
+    # c.validate_password_field = false
   end
 
   has_many :authorizations

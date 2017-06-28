@@ -14,5 +14,6 @@ class ImagesController < ApplicationController
     i = current_user.images.new
     i.image = params[:image]
     i.save!
+    redirect_to "users/show"
   end
 end
