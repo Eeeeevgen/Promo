@@ -6,10 +6,22 @@ nav.navbar.navbar-default.navbar-fixed-top
           = link_to "Test", '/test'
         li
           = link_to "Home", root_path
-        - if session[:user_id]
-          li
-            = link_to "Logout", :logout
+        - if current_user
+          li.dropdown
+            a.dropdown-toggle[data-toggle="dropdown"]
+              |  Account:
+              b
+                = current_user[:email]
+              b.caret
+            ul.dropdown-menu
+              li
+                = link_to "Your images", user_path(current_user)
+              li
+                = link_to "Settings", edit_user_path(current_user)
+            li
+              = link_to 'Logout', :logout, method: :delete
         - else
-          li = link_to "Sign In", :sign_up
-          li
-            = link_to "Login", '/auth/facebook'
+            li
+              = link_to "Register", :register
+            li
+              = link_to 'Login', :login

@@ -14,9 +14,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @image = Image.last && Image.last.image.url
+    # @image = current_user.images
+  end
+
   private
 
     def users_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :lang)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
 end
