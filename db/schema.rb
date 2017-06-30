@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170628194330) do
+ActiveRecord::Schema.define(version: 20170630084903) do
 
   create_table "authorizations", force: :cascade do |t|
     t.string "provider"
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(version: 20170628194330) do
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.text "text"
+    t.integer "image_id"
+    t.integer "pid"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "images", force: :cascade do |t|
@@ -28,6 +37,13 @@ ActiveRecord::Schema.define(version: 20170628194330) do
     t.integer "likes", default: 0
   end
 
+  create_table "likes", force: :cascade do |t|
+    t.integer "image_id"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -36,6 +52,8 @@ ActiveRecord::Schema.define(version: 20170628194330) do
     t.string "persistence_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "voted", default: false
+    t.string "avatar"
   end
 
 end

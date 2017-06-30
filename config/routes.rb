@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :users, only: [:new, :create, :show, :edit]
   resources :user_sessions, only: [:create, :destroy]
-
+  resources :images, only: [:show]
   root "main#index"
 
   post "/image" => "users#show"
@@ -21,4 +21,9 @@ Rails.application.routes.draw do
 
   match '/auth/:provider/callback' => 'sessions#create', via: :all
   match '/auth/failure' => 'sessions#failure', via: :all
+
+  get '/images/:id' => 'images#show', as: :image_show
+  get '/images/:id/vote' => 'images#vote', as: :vote
+
+  post '/addcomment' => 'images#comment'
 end

@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :authorizations
   has_many :images
   # validates :name, :email, :presence => true
+  mount_uploader :avatar, ImageUploader
 
   def add_provider(auth_hash)
     # Check if the provider already exists, so we don't add it twice

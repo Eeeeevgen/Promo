@@ -40,6 +40,7 @@ gem 'bootstrap-will_paginate'
 
 gem 'redis'
 gem 'redis-namespace'
+gem 'leaderboard'
 
 gem 'omniauth'
 gem 'omniauth-facebook'
@@ -49,6 +50,11 @@ gem 'carrierwave', '~> 1.0'
 gem 'mini_magick', '~> 4.3'
 
 gem 'slim'
+
+gem 'active_interaction', '~> 3.5'
+
+gem 'closure_tree'
+
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

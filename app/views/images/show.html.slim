@@ -1,0 +1,42 @@
+div.row.row-centered#image_container
+  = image_tag @image.image.url, class: "img-thumbnail"
+
+div.row.row-centered style="margin-top: 20px;"
+
+  = form_for @comment, url: "/addcomment", html: {class: "form-inline"} do |f|
+    div.form-group
+      = f.text_area :text, placeholder: "Add your comment here", class: "form-control", id: "comment_input"
+      = f.hidden_field :image_id, value: params[:id]
+      = f.hidden_field :pid, value: nil
+      = f.submit "Send", class: "btn-success btn-md form-control", id: "btn-comment"
+
+ul class="media-list"
+  li class="media"
+    div class="media-left"
+      a href="#"
+        = image_tag "default_avatar.png", class: "media-object", style: "width: 64px; height: 64px;"
+    div class="media-body"
+      h4 class="media-heading"
+        |Media heading
+      p
+        | some comment
+      div class="media"
+        a class="media-left" href="#"
+          = image_tag "default_avatar.png", class: "media-object", style: "width: 64px; height: 64px;"
+        div class="media-body"
+          h4 class="media-heading"
+            | Nested media heading
+          p
+            | Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+
+
+
+h2
+  | Comments:
+- if @comments
+  - @comments.each do |comment|
+    p
+      = comment.text
+
+
+= params.inspect

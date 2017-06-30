@@ -7,20 +7,23 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(users_params)
+
     if @user.save
       flash[:success] = "Account registered!"
       redirect_to root_path
     else
-      puts '1111'
+      flash[:danger] = "Some error occured"
       render :new
     end
   end
 
   def show
     if request.post?
-      i = current_user.images.new
-      i.image = params[:image]
-      i.save!
+      params[:images].each do |image|
+        i = current_user.images.new
+        i.image = image
+        i.save
+      end
       redirect_to user_path(current_user)
     end
     @image = Image.last && Image.last.image.url

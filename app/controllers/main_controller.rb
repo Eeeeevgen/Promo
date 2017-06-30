@@ -4,6 +4,6 @@ class MainController < ApplicationController
   end
 
   def test
-    # @user = User.find(session[:user_id])
+    @comments = Comment.all
   end
 end

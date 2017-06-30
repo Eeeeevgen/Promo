@@ -91,10 +91,82 @@
   }
 }
 
+.pagination {
+  margin-bottom: 5px;
+}
+
+.caption {
+  padding: 0 !important;
+  p {
+    margin-top: 10px;
+    margin-bottom: 0px;
+  }
+}
+
+.like {
+  width: 100px;
+  height: 30px;
+  margin: 0;
+  vertical-align: middle;
+  text-align: center;
+  display: inline-block;
+  a {
+    display: inline-block;
+    width: 30px;
+  }
+  .count {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    vertical-align: top;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 30px;
+  }
+  img {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    margin: 0 !important;
+  }
+}
 
 
 .img-centered {
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+
+.background {
+  background: url("back4.png") fixed no-repeat;
+  background-size: cover;
+}
+
+#main {
+  padding-bottom: 20px;
+  min-height: 700px;
+}
+
+.upload {
+  width: 350px;
+  margin: 0 auto;
+}
+
+#image_container {
+  margin-top: 30px;
+}
+
+#btn-comment {
+  width: 200px;
+  margin: 0;
+  margin-left: 10px;
+}
+
+textarea#comment_input {
+  height: 35px;
+  min-height: 35px;
+  margin-bottom: 10px;
+  margin: 0 !important;
+  width: 500px;
 }

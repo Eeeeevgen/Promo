@@ -1,19 +1,29 @@
 class ImagesController < ApplicationController
   def new
-    puts 'upload!'
-    # p = Image.new
-    # p.image = params[:image]
-    # p.save!
-    # # p.image.scale(100, 100)
-    # # puts p.image.url # => '/url/to/file.png'
-    # # puts p.image.current_path # => 'path/to/file.png'
-    # # puts p.image_identifier # => 'file.png'
-    # @image = Image.last && Image.last.image.url
-    # render :index
-
-    i = current_user.images.new
-    i.image = params[:image]
-    i.save!
-    redirect_to "users/show"
   end
+
+  def show
+    @image = Image.find(params[:id])
+    @comments = Comment.where(:image_id => params[:id])
+    @comment = Comment.new
+  end
+
+  def vote
+    @image = Image.find(params[:id])
+    @image.likes += 1
+    @image.save
+    redirect_to root
+  end
+
+  def comment
+    comment = Comment.new(comments_params)
+    comment.save
+    redirect_back(fallback_location: root_path)
+  end
+
+  private
+
+    def comments_params
+      params.require(:comment).permit(:text, :pid, :image_id)
+    end
 end
