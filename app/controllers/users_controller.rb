@@ -30,6 +30,15 @@ class UsersController < ApplicationController
     @images = current_user.images.paginate(page: params[:page], :per_page => 6)
   end
 
+  def edit
+    @avatar = current_user.avatar
+    if @avatar.blank?
+      @avatar = "default_avatar.png"
+    else
+      @avatar = @avatar.url
+    end
+  end
+
   private
 
     def users_params

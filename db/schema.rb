@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630084903) do
+ActiveRecord::Schema.define(version: 20170630093952) do
 
   create_table "authorizations", force: :cascade do |t|
     t.string "provider"
@@ -20,10 +20,18 @@ ActiveRecord::Schema.define(version: 20170630084903) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "comment_hierarchies", force: :cascade do |t|
+    t.integer "ancestor_id"
+    t.integer "descendant_id"
+    t.integer "generations"
+    t.index ["ancestor_id", "descendant_id", "generations"], name: "comment_anc_desc_udx", unique: true
+    t.index ["descendant_id"], name: "comment_desc_idx"
+  end
+
   create_table "comments", force: :cascade do |t|
     t.text "text"
     t.integer "image_id"
-    t.integer "pid"
+    t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"

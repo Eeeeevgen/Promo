@@ -4,6 +4,7 @@ class MainController < ApplicationController
   end
 
   def test
-    @comments = Comment.all
+    @comment = Comment.new
+    @comments = Comment.hash_tree
   end
 end

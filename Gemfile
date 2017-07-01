@@ -46,14 +46,14 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 
-gem 'carrierwave', '~> 1.0'
+gem 'carrierwave', '~> 1.1.0'
 gem 'mini_magick', '~> 4.3'
 
 gem 'slim'
 
 gem 'active_interaction', '~> 3.5'
 
-gem 'closure_tree'
+gem 'closure_tree', :git => "git://github.com/ClosureTree/closure_tree.git"
 
 
 group :development, :test do

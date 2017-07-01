@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
-  helper_method :current_user_session, :current_user
+  helper_method :current_user_session, :current_user, :username
 
   def puts_marked(input)
     puts 1111111111
@@ -21,5 +21,12 @@ class ApplicationController < ActionController::Base
       @current_user = current_user_session && current_user_session.user
     end
 
-
+    def username(id)
+      user = User.find(id)
+      if user
+        user.name
+      else
+        "none"
+      end
+    end
 end

@@ -5,4 +5,23 @@ p
   - else
     = 'No user'
 
-= render @comments
+
+div.row.row-centered style="margin-top: 20px;"
+  = form_for @comment, url: "/addcomment", html: {class: "form-inline"} do |f|
+    div.form-group
+      = label_tag :p, "", id: :parent_info, style:"margin-right: 10px;"
+      = f.text_area :text, placeholder: "Add your comment here", class: "form-control", id: "comment_input"
+      = f.hidden_field :image_id, value: '11111'
+      = f.hidden_field :user_id, value: current_user.id
+      = f.hidden_field :parent_id, value: nil, id:"parent_id"
+      = f.submit "Send", class: "btn-success btn-md form-control", id: "btn-comment"
+
+= comments_tree_for @comments
+
+javascript:
+    function set_parent_id(pid) {
+        document.getElementById("parent_id").value = pid;
+        document.getElementById("parent_info").innerHTML = "Reply to: " + pid;
+        document.getElementById("comment_input").focus();
+    }
+

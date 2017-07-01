@@ -2,41 +2,25 @@ div.row.row-centered#image_container
   = image_tag @image.image.url, class: "img-thumbnail"
 
 div.row.row-centered style="margin-top: 20px;"
-
-  = form_for @comment, url: "/addcomment", html: {class: "form-inline"} do |f|
+  = form_for @comment, url: "/addcomment", html: {class: "form-inline", style: "margin-bottom: 5px;"} do |f|
     div.form-group
+      /= label_tag :p, "", id: :parent_info, style:"margin-right: 10px;"
       = f.text_area :text, placeholder: "Add your comment here", class: "form-control", id: "comment_input"
       = f.hidden_field :image_id, value: params[:id]
-      = f.hidden_field :pid, value: nil
+      = f.hidden_field :user_id, value: current_user.id
+      = f.hidden_field :parent_id, value: nil, id:"parent_id"
       = f.submit "Send", class: "btn-success btn-md form-control", id: "btn-comment"
+div.row.row-centered
+  = label_tag :p, "", id: :parent_info, style:"margin-bottom: 0px;"
+
 
 ul class="media-list"
-  li class="media"
-    div class="media-left"
-      a href="#"
-        = image_tag "default_avatar.png", class: "media-object", style: "width: 64px; height: 64px;"
-    div class="media-body"
-      h4 class="media-heading"
-        |Media heading
-      p
-        | some comment
-      div class="media"
-        a class="media-left" href="#"
-          = image_tag "default_avatar.png", class: "media-object", style: "width: 64px; height: 64px;"
-        div class="media-body"
-          h4 class="media-heading"
-            | Nested media heading
-          p
-            | Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin commodo. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis.
+  = comments_tree_for @comments
 
 
-
-h2
-  | Comments:
-- if @comments
-  - @comments.each do |comment|
-    p
-      = comment.text
-
-
-= params.inspect
+javascript:
+    function set_parent_id(pid, name) {
+        document.getElementById("parent_id").value = pid;
+        document.getElementById("parent_info").innerHTML = "Reply to: " + name;
+        document.getElementById("comment_input").focus();
+    }

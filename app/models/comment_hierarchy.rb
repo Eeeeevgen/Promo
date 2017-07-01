@@ -1,0 +1,2 @@
+class CommentHierarchy < ApplicationRecord
+end

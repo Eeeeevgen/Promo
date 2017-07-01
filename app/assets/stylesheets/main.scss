@@ -139,7 +139,7 @@
 }
 
 .background {
-  background: url("back4.png") fixed no-repeat;
+  background: url("back10.png") fixed no-repeat;
   background-size: cover;
 }
 
@@ -169,4 +169,13 @@ textarea#comment_input {
   margin-bottom: 10px;
   margin: 0 !important;
   width: 500px;
+}
+
+.replies {
+  margin-top: 15px;
+  margin-left: 50px;
+}
+
+#reply {
+  width: 50px;
 }

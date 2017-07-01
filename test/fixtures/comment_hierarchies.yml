@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ancestor_id: 1
+  descendant_id: 1
+  generations: 1
+
+two:
+  ancestor_id: 1
+  descendant_id: 1
+  generations: 1

@@ -5,6 +5,9 @@ class ImagesController < ApplicationController
   def show
     @image = Image.find(params[:id])
     @comments = Comment.where(:image_id => params[:id])
+    @comments = Comment.where(:image_id => params[:id]).hash_tree
+    puts @comments.inspect
+
     @comment = Comment.new
   end
 
@@ -16,7 +19,13 @@ class ImagesController < ApplicationController
   end
 
   def comment
-    comment = Comment.new(comments_params)
+    if params[:comment][:parent_id].to_i > 0
+      parent = Comment.find_by_id(params[:comment].delete(:parent_id))
+      comment = parent.children.build(comments_params)
+    else
+      comment = Comment.new(comments_params)
+    end
+
     comment.save
     redirect_back(fallback_location: root_path)
   end
@@ -24,6 +33,6 @@ class ImagesController < ApplicationController
   private
 
     def comments_params
-      params.require(:comment).permit(:text, :pid, :image_id)
+      params.require(:comment).permit(:text, :parent_id, :image_id, :user_id)
     end
 end
