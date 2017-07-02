@@ -6,6 +6,8 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :crypted_password, :default => nil, :null => true
       t.string :password_salt, :default => nil, :null => true
       t.string :persistence_token
+      t.string :avatar
+      t.string :remote_avatar_url
 
       t.timestamps
     end

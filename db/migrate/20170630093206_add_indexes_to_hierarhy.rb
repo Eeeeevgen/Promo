@@ -1,7 +1,5 @@
 class AddIndexesToHierarhy < ActiveRecord::Migration[5.1]
   def change
-    rename_table :commen_hierarchies, :comment_hierarchies
-
     add_index :comment_hierarchies, [:ancestor_id, :descendant_id, :generations],
               :unique => true, :name => "comment_anc_desc_udx"
 

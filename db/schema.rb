@@ -31,18 +31,18 @@ ActiveRecord::Schema.define(version: 20170702154720) do
   create_table "comments", force: :cascade do |t|
     t.text "text"
     t.integer "image_id"
+    t.integer "user_id"
     t.integer "parent_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
   end
 
   create_table "images", force: :cascade do |t|
     t.integer "user_id"
     t.string "image"
+    t.integer "likes_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "likes_count"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -58,10 +58,10 @@ ActiveRecord::Schema.define(version: 20170702154720) do
     t.string "crypted_password"
     t.string "password_salt"
     t.string "persistence_token"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "avatar"
     t.string "remote_avatar_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

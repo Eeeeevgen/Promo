@@ -1,6 +1,6 @@
-class CreateCommenHierarchies < ActiveRecord::Migration[5.1]
+class CreateCommentHierarchies < ActiveRecord::Migration[5.1]
   def change
-    create_table :commen_hierarchies do |t|
+    create_table :comment_hierarchies do |t|
       t.integer :ancestor_id
       t.integer :descendant_id
       t.integer :generations
