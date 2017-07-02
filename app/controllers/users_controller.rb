@@ -12,7 +12,7 @@ class UsersController < ApplicationController
       flash[:success] = "Account registered!"
       redirect_to root_path
     else
-      flash[:danger] = "Some error occured"
+      # flash[:danger] = "Some error occured"
       render :new
     end
   end
@@ -24,10 +24,10 @@ class UsersController < ApplicationController
         i.image = image
         i.save
       end
-      redirect_to user_path(current_user)
+      params[:id] = current_user.id
+      redirect_to user_path(current_user.id)
     end
-    @image = Image.last && Image.last.image.url
-    @images = current_user.images.paginate(page: params[:page], :per_page => 6)
+    @images = User.find(params[:id].to_i).images.paginate(page: params[:page], :per_page => 6)
   end
 
   def edit
@@ -37,6 +37,13 @@ class UsersController < ApplicationController
     else
       @avatar = @avatar.url
     end
+  end
+
+  def avatar
+    current_user.avatar = params[:image]
+    current_user.save
+    flash[:success] = "Avatar updated"
+    redirect_to edit_user_path(current_user)
   end
 
   private

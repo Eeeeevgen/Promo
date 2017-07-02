@@ -1,15 +1,14 @@
-- provide(:title, 'Your images')
+- provide(:title, 'User profile')
 h1
-  | Your images
+  = username(params[:id].to_i)
 
-
-
-div.upload
-  h2
-    | Upload new:
-  = form_tag "/image", multipart: true do
-    = file_field_tag :image, name: "images[]", multiple: true
-    = submit_tag "Upload", class: "btn btn-primary"
+- if current_user.id == params[:id].to_i
+  div.upload
+    h2
+      | Upload new:
+    = form_tag "/image", multipart: true do
+      = file_field_tag :image, name: "images[]", multiple: true
+      = submit_tag "Upload", class: "btn btn-primary"
 
 div.row-centered
   = will_paginate @images
@@ -18,71 +17,16 @@ div.row-centered
 
   div.row.row-centered
     - if @images.length > 0
-      div.thumbnail.thumbnail-col
-        div.image_container
-          = link_to(image_tag(@images[0].image.thumb.url), image_path(@images[0]))
-        div.caption
-          p
-            = link_to(@images[0].user.name, user_path(@images[0].user))
-          div.like
-            = link_to(image_tag('like2.png'), "/images/#{@images[0].id}/vote")
-            /= link_to(image_tag('like.png'), :action => :vote, :controller => :images, :id => @images[0].id)
-            div.count
-              = @images[0].likes
+      = render 'layouts/image', current_image: @images[0]
     - if @images.length > 1
-      div.thumbnail.thumbnail-col
-        div.image_container
-          = link_to(image_tag(@images[1].image.thumb.url), image_path(@images[1]))
-        div.caption
-          p
-            = link_to(@images[1].user.name, user_path(@images[1].user))
-          div.like
-            = link_to(image_tag('like.png'), '#')
-            div.count
-              = @images[1].likes
+      = render 'layouts/image', current_image: @images[1]
     - if @images.length > 2
-      div.thumbnail.thumbnail-col
-        div.image_container
-          = link_to(image_tag(@images[2].image.thumb.url), image_path(@images[2]))
-        div.caption
-          p
-            = link_to(@images[2].user.name, user_path(@images[2].user))
-          div.like
-            = link_to(image_tag('like.png'), '#')
-            div.count
-              = @images[2].likes
+      = render 'layouts/image', current_image: @images[2]
 
   div.row.row-centered
     - if @images.length > 3
-      div.thumbnail.thumbnail-col
-        div.image_container
-          = image_tag @images[3].image.thumb.url
-        div.caption
-          p
-            = link_to(@images[3].user.name, user_path(@images[3].user))
-          div.like
-            = link_to(image_tag('like.png'), '#')
-            div.count
-              = @images[3].likes
+      = render 'layouts/image', current_image: @images[3]
     - if @images.length > 4
-      div.thumbnail.thumbnail-col
-        div.image_container
-          = image_tag @images[4].image.thumb.url
-        div.caption
-          p
-            = link_to(@images[4].user.name, user_path(@images[4].user))
-          div.like
-            = link_to(image_tag('like.png'), '#')
-            div.count
-              = @images[4].likes
+      = render 'layouts/image', current_image: @images[4]
     - if @images.length > 5
-      div.thumbnail.thumbnail-col
-        div.image_container
-          = image_tag @images[5].image.thumb.url
-        div.caption
-          p
-            = link_to(@images[5].user.name, user_path(@images[5].user))
-          div.like
-            = link_to(image_tag('like.png'), '#')
-            div.count
-              = @images[5].likes
+      = render 'layouts/image', current_image: @images[5]

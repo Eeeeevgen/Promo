@@ -1,1 +1,1 @@
-$redis = Redis::Namespace.new("ratings", :redis => Redis.new)
+$redis = Redis::Namespace.new("promo", :redis => Redis.new)

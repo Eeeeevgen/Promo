@@ -11,7 +11,7 @@ div.row.row-centered style="margin-top: 20px;"
       = f.hidden_field :parent_id, value: nil, id:"parent_id"
       = f.submit "Send", class: "btn-success btn-md form-control", id: "btn-comment"
 div.row.row-centered
-  = label_tag :p, "", id: :parent_info, style:"margin-bottom: 0px;"
+  = label_tag :p, "123", id: :parent_info, style:"margin-bottom: 10px; visibility: hidden;"
 
 
 ul class="media-list"
@@ -22,5 +22,6 @@ javascript:
     function set_parent_id(pid, name) {
         document.getElementById("parent_id").value = pid;
         document.getElementById("parent_info").innerHTML = "Reply to: " + name;
+        document.getElementById("parent_info").style.visibility = "visible";
         document.getElementById("comment_input").focus();
     }

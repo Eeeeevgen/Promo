@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170630093952) do
+ActiveRecord::Schema.define(version: 20170702154720) do
 
   create_table "authorizations", force: :cascade do |t|
     t.string "provider"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 20170630093952) do
     t.string "image"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "likes", default: 0
+    t.integer "likes_count"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -60,8 +60,8 @@ ActiveRecord::Schema.define(version: 20170630093952) do
     t.string "persistence_token"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "voted", default: false
     t.string "avatar"
+    t.string "remote_avatar_url"
   end
 
 end

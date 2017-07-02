@@ -1,8 +1,9 @@
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :facebook, '102839003675100', '942dab595d434238237dab1c3310b95a'
-  provider :vkontakte, '6085918', 'IuWw374g6srRMtVa9cRL',
+  provider :facebook, ENV['FACEBOOK_KEY'], ENV['FACEBOOK_SECRET']
+  provider :vkontakte, ENV['VK_API_KEY'], ENV['VK_API_SECRET'],
            {
                :scope => 'email',
                :lang => 'en'
            }
+  provider :google_oauth2, ENV['GOOGLE_CLIENT_ID'], ENV['GOOGLE_CLIENT_SECRET']
 end

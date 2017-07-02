@@ -1,20 +1,16 @@
 li class="media"
   div class="media-left"
-    a href="#"
-      = image_tag "default_avatar.png", class: "media-object", style: "width: 64px; height: 64px;"
+    a href=user_path(comment.user_id)
+      = image_tag avatar_thumb_url(comment.user_id), class: "media-object img-thumbnail", style: "width: 64px; height: 64px;"
   div class="media-body"
     h4 class="media-heading"
-      strong
+      a href=user_path(comment.user_id)
         = username(comment.user_id)
       = ", "
       = l(comment.created_at, format: '%B, %d %Y %H:%M:%S')
       span onclick="set_parent_id('#{comment.id}', '#{username(comment.user_id)}');"
         = " "
-        a style="color:green; font-style: italic; font-size: 0.8em; cursor: pointer"
+        a style="color:green; font-style: italic; font-size: 0.8em; cursor: alias"
           = "reply"
-      /= "     "
-      /= button_tag 'reply', class: "btn-xs btn-link", id: "reply", onclick: "set_parent_id('#{comment.id}', '#{username(comment.user_id)}');", style: "display: inline; "
     p
       = comment.text
-  /p
-  /  = button_tag 'reply', id: "reply", onclick: "set_parent_id('#{comment.id}', '#{username(comment.user_id)}');"

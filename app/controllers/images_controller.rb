@@ -4,18 +4,22 @@ class ImagesController < ApplicationController
 
   def show
     @image = Image.find(params[:id])
-    @comments = Comment.where(:image_id => params[:id])
     @comments = Comment.where(:image_id => params[:id]).hash_tree
-    puts @comments.inspect
-
     @comment = Comment.new
   end
 
-  def vote
-    @image = Image.find(params[:id])
-    @image.likes += 1
-    @image.save
-    redirect_to root
+  def like
+    image = Image.find(params[:id])
+    if image.user.id != current_user.id
+      like = Like.find_by(user_id: current_user.id, image_id: params[:id])
+      if like
+        like.destroy
+      else
+        Like.create(user_id: current_user.id, image_id: params[:id])
+      end
+    end
+
+    redirect_back(fallback_location: root_path)
   end
 
   def comment

@@ -2,7 +2,7 @@ doctype html
 html
   head
     title
-      | Promo site
+      = yield(:title)
     = csrf_meta_tags
     script[src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"]
     script[src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"]
@@ -11,9 +11,9 @@ html
   body
     = render 'layouts/header'
     div.background
-      - flash.each do |message_type, message|
-        = content_tag(:div, message, class: "alert alert-#{message_type}")
       .container#main
+        - flash.each do |message_type, message|
+          = content_tag(:div, message, class: "alert alert-#{message_type}")
         = yield
     = render 'layouts/footer'
     = debug(params) if Rails.env.development?

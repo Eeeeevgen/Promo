@@ -1,3 +1,5 @@
+require 'pp'
+
 class SessionsController < ApplicationController
   def new
     @user_session = UserSession.new
@@ -5,23 +7,21 @@ class SessionsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth']
+    puts
+    puts
+    pp auth_hash
+    puts
+    puts
     if auth_hash # auth through social networks
       if current_user_session
-        # Means our user is signed in. Add the authorization to the user
         current_user.add_provider(auth_hash)
-        flash[:notice] = "You can now login using #{auth_hash["provider"]} too!"
+        flash[:info] = "You can now login using #{auth_hash["provider"]}"
+        redirect_to edit_user_path(current_user)
       else
-        # Log him in or sign him up
         auth = Authorization.find_or_create(auth_hash)
+        @user = User.find_by(email: auth.user.email)
+        UserSession.create(@user, true)
 
-        # Create the session
-        session[:user_id] = auth.user.id
-        @user = User.find_by_email(auth.user.email)
-        # puts_marked(@user)
-        ses = UserSession.create(@user, true)
-        # puts_marked(ses)
-
-        # render :plain => "Welcome #{auth.user.name}!"
         redirect_to root_path
       end
     else # auth through login/pass

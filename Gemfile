@@ -45,6 +45,7 @@ gem 'leaderboard'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
+gem 'omniauth-google-oauth2'
 
 gem 'carrierwave', '~> 1.1.0'
 gem 'mini_magick', '~> 4.3'
@@ -54,7 +55,7 @@ gem 'slim'
 gem 'active_interaction', '~> 3.5'
 
 gem 'closure_tree', :git => "git://github.com/ClosureTree/closure_tree.git"
-
+gem 'figaro'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
