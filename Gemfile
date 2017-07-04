@@ -30,6 +30,8 @@ gem 'jbuilder', '~> 2.5'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
+gem 'slim'
+
 gem 'bootstrap-sass',       '3.3.6'
 # For passwords hashes
 gem 'bcrypt',               '3.1.7'
@@ -47,15 +49,23 @@ gem 'omniauth-facebook'
 gem 'omniauth-vkontakte'
 gem 'omniauth-google-oauth2'
 
+# image uploading and modifying
 gem 'carrierwave', '~> 1.1.0'
 gem 'mini_magick', '~> 4.3'
 
-gem 'slim'
-
+# for service objects
 gem 'active_interaction', '~> 3.5'
 
+# for making trees from comments model
 gem 'closure_tree', :git => "git://github.com/ClosureTree/closure_tree.git"
+
+# easy use ENV variable with yml
 gem 'figaro'
+
+# serializer for api
+gem 'active_model_serializers', '~> 0.10.0'
+
+gem 'activeadmin'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

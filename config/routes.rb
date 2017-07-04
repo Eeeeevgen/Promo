@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  ActiveAdmin.routes(self)
   resources :users, only: [:new, :create, :show, :edit]
   resources :user_sessions, only: [:create, :destroy]
   resources :images, only: [:show]
@@ -23,9 +24,18 @@ Rails.application.routes.draw do
 
   get '/images/:id' => 'images#show', as: :image_show
   get '/images/:id/like' => 'images#like', as: :like
+  delete '/images/:id/' => 'images#delete'
 
-  post "/image" => "users#show"
-  post '/addcomment' => 'images#comment'
+  post '/image' => 'users#show'
   post '/avatar' => 'users#avatar'
-  # post '/like' => "images#like"
+
+  post '/addcomment' => 'images#comment'
+  post '/uploadimage' => "images#upload"
+
+  namespace :api do
+    namespace :v1 do
+      resources :users, only: [:index, :create, :show, :update, :destroy]
+      resources :images, only: [:index, :create, :show, :update, :destroy]
+    end
+  end
 end

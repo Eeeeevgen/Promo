@@ -9,17 +9,22 @@ class ImagesController < ApplicationController
   end
 
   def like
-    image = Image.find(params[:id])
-    if image.user.id != current_user.id
-      like = Like.find_by(user_id: current_user.id, image_id: params[:id])
-      if like
-        like.destroy
-      else
-        Like.create(user_id: current_user.id, image_id: params[:id])
+    LbLike.run(image_id: params[:id], user: current_user)
+    redirect_back(fallback_location: root_path)
+  end
+
+  def upload
+    if params[:images]
+      params[:images].each do |image|
+        i = current_user.images.new
+        i.image = image
+        i.save
+        puts 'save!!!!!!!!!!!!!!!!!'
+        LbNewImage.run(image_id: i.id)
       end
     end
-
-    redirect_back(fallback_location: root_path)
+    params[:id] = current_user.id
+    redirect_to user_path(current_user.id)
   end
 
   def comment
@@ -32,6 +37,16 @@ class ImagesController < ApplicationController
 
     comment.save
     redirect_back(fallback_location: root_path)
+  end
+
+  def delete
+    image = current_user.images.find(params[:id])
+    if image
+      LbDelete.run(image_id: image.id)
+      image.destroy
+
+    end
+    redirect_to user_path(current_user)
   end
 
   private

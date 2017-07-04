@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
 
     def like_button_style(image)
       if !current_user || image.user.id == current_user.id
-         return "pointer-events: none;"
+        return "pointer-events: none;"
       end
       if image.likes.find_by(user_id: current_user.id)
         return "opacity: 0.5;"

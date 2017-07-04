@@ -35,8 +35,12 @@ h1 {
   margin-bottom: 20px;
   margin-top: 30px;
   text-align: center;
-  color: white;
-  text-shadow: darkgreen 0 0 6px;
+  color: #dcf1a8;
+  //text-shadow: darkgreen 0 0 6px;
+  text-shadow: darkgreen 1px 1px 3px,
+  darkgreen -1px -1px 3px,
+  darkgreen -1px 1px 3px,
+  darkgreen 1px -1px 3px;
 }
 
 h2 {
@@ -50,6 +54,14 @@ h2 {
 p {
   font-size: 1.1em;
   line-height: 1.7em;
+}
+
+a {
+  color: darkgreen;
+
+  &:hover {
+    color: darkgreen;
+  }
 }
 
 ///* заголовок */
@@ -145,29 +157,6 @@ textarea {
   }
 }
 
-#history{
-  width: 1360px;
-  table-layout: fixed;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#history th:nth-child(1) {
-  width: 160px;
-}
-
-#history th:nth-child(2), #history th:nth-child(3) {
-  width: 120px;
-}
-
-#history th:nth-child(4), #history th:nth-child(5) {
-  width: 400px;
-}
-
-#history th {
-  text-align: center;
-  vertical-align: middle;
-}
 
 .row-centered {
   text-align:center;

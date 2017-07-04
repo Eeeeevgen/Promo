@@ -18,15 +18,6 @@ class UsersController < ApplicationController
   end
 
   def show
-    if request.post?
-      params[:images].each do |image|
-        i = current_user.images.new
-        i.image = image
-        i.save
-      end
-      params[:id] = current_user.id
-      redirect_to user_path(current_user.id)
-    end
     @images = User.find(params[:id].to_i).images.paginate(page: params[:page], :per_page => 6)
   end
 

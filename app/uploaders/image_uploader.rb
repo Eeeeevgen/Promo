@@ -28,7 +28,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   process :resize_to_fit => [800, 800]
 
   version :thumb do
-    process resize_to_fit: [200,200]
+    process resize_to_fit: [200,133]
   end
 
   def to_avatar
