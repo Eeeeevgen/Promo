@@ -7,11 +7,6 @@ class SessionsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth']
-    puts
-    puts
-    pp auth_hash
-    puts
-    puts
     if auth_hash # auth through social networks
       if current_user_session
         current_user.add_provider(auth_hash)

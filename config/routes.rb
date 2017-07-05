@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
+  get '/admin/images/:id/accept' => 'admin/images#accept'
+  get '/admin/images/:id/decline' => 'admin/images#decline'
+
   resources :users, only: [:new, :create, :show, :edit]
   resources :user_sessions, only: [:create, :destroy]
   resources :images, only: [:show]
@@ -39,3 +42,7 @@ Rails.application.routes.draw do
     end
   end
 end
+
+Rails.application.routes.default_url_options = {
+    host: 'localhost:3000'
+}

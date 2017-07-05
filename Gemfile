@@ -65,7 +65,10 @@ gem 'figaro'
 # serializer for api
 gem 'active_model_serializers', '~> 0.10.0'
 
-gem 'activeadmin'
+gem 'activeadmin', github: 'activeadmin'
+gem 'pundit'
+gem 'aasm'
+gem 'kaminari'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record
