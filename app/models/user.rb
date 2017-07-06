@@ -4,17 +4,10 @@ class User < ApplicationRecord
     c.validate_email_field = true
     c.validate_login_field = false
     c.ignore_blank_passwords  = true
-    # c.validate_password_field = false
-
-    # external = Proc.new { |r| r.externally_authenticated? }
-    #
-    # c.merge_validates_confirmation_of_password_field_options(:unless => external)
-    # c.merge_validates_length_of_password_confirmation_field_options(:unless => external)
-    # c.merge_validates_length_of_password_field_options(:unless => external)
   end
 
-  has_many :authorizations
-  has_many :images
+  has_many :authorizations, dependent: :destroy
+  has_many :images, dependent: :destroy
 
   validates :name, :email, :presence => true
   mount_uploader :avatar, AvatarUploader
@@ -24,8 +17,4 @@ class User < ApplicationRecord
       Authorization.create :user => self, :provider => auth_hash["provider"], :uid => auth_hash["uid"]
     end
   end
-
-  # def externally_authenticated?
-  #   self.ext? ? true : false
-  # end
 end

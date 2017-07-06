@@ -1,23 +1,35 @@
 ActiveAdmin.register Image do
+  scope("Accepted") { |scope| scope.where(aasm_state: :accepted) }
+  scope("Uploaded") { |scope| scope.where(aasm_state: :uploaded) }
+  scope("Declined") { |scope| scope.where(aasm_state: :declined) }
+
   config.sort_order = "aasm_state_desc"
 
   index do
     column :id
     column :image do |image|
-      image_tag image.image.thumb.url
+      link_to (image_tag image.image.thumb.url), admin_image_path(image)
     end
     column :user_id
     column :likes_count
-    column :aasm_state, as: :state
+    column 'State', :aasm_state
     actions defaults: false do |image|
       a "View", href: admin_image_path(image)
       br
       a "Accept", href: "/admin/images/#{image.id}/accept"
       br
       a "Decline", href: "/admin/images/#{image.id}/decline"
+      br
+      link_to "Delete", admin_image_path(image), method: :delete, "data-confirm" => "Are you sure?"
     end
-
   end
+
+  # index as: :table do |image|
+  #   column :id
+  #   column :image do |image|
+  #     link_to (image_tag image.image.thumb.url), admin_image_path(image)
+  #   end
+  # end
 
   show do
     attributes_table do
@@ -32,6 +44,7 @@ ActiveAdmin.register Image do
       row :admin do
         a 'Accept', href: "/admin/images/#{image.id}/accept"
         a 'Decline', href: "/admin/images/#{image.id}/decline"
+        link_to "Delete", admin_image_path(image), method: :delete, "data-confirm" => "Are you sure?"
       end
 
     end
@@ -39,19 +52,26 @@ ActiveAdmin.register Image do
 
   controller do
     def accept
-      Image.find(params[:id]).accept!
-      redirect_to admin_images_path
+      image = Image.find(params[:id])
+      image.accept!
+      LbNewImage.run(image_id: image.id, score: image.likes_count)
+      redirect_back(fallback_location: admin_images_path)
     end
 
     def decline
-      Image.find(params[:id]).decline!
+      image = Image.find(params[:id])
+      image.decline!
+      LbDelete.run(image_id: image.id)
+      redirect_back(fallback_location: admin_images_path)
+    end
+
+    def destroy
+      image = Image.find(params[:id])
+      if image
+        LbDelete.run(image_id: image.id)
+        image.destroy
+      end
       redirect_to admin_images_path
     end
-  end
-
-  member_action :lock, method: :put do
-    puts 00000000000000
-    # resource.lock!
-    # redirect_to resource_path, notice: "Locked!"
   end
 end

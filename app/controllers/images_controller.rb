@@ -19,8 +19,6 @@ class ImagesController < ApplicationController
         i = current_user.images.new
         i.image = image
         i.save
-        puts 'save!!!!!!!!!!!!!!!!!'
-        LbNewImage.run(image_id: i.id)
       end
     end
     params[:id] = current_user.id

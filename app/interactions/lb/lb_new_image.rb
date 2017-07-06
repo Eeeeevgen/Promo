@@ -3,8 +3,9 @@ include LbHelper
 
 class LbNewImage < ActiveInteraction::Base
   integer :image_id
+  integer :score
 
   def execute
-    lb.rank_member(image_id, 0)
+    lb.rank_member(image_id, score)
   end
 end
