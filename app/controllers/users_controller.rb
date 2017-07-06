@@ -7,27 +7,23 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(users_params)
-
+    @user.token = SecureRandom.urlsafe_base64
     if @user.save
       flash[:success] = "Account registered!"
       redirect_to root_path
     else
-      # flash[:danger] = "Some error occured"
       render :new
     end
   end
 
   def show
-    @images = User.find(params[:id].to_i).images.paginate(page: params[:page], :per_page => 6)
+    @images = User.find(params[:id]).images.page(params[:page]).per(6)
+    # @images = Image.where(aasm_state: :accepted).order(likes_count: :desc).page(params[:page]).per(6)
   end
 
   def edit
-    @avatar = current_user.avatar
-    if @avatar.blank?
-      @avatar = "default_avatar.png"
-    else
-      @avatar = @avatar.url
-    end
+    @user = User.find(params[:id])
+    authorize @user
   end
 
   def avatar
@@ -40,6 +36,6 @@ class UsersController < ApplicationController
   private
 
     def users_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation)
+      params.require(:user).permit(:name, :email, :password, :password_confirmation, :token)
     end
 end

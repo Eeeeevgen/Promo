@@ -17,4 +17,8 @@ class User < ApplicationRecord
       Authorization.create :user => self, :provider => auth_hash["provider"], :uid => auth_hash["uid"]
     end
   end
+
+  def admin?
+    self.admin
+  end
 end

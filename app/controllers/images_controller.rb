@@ -9,7 +9,8 @@ class ImagesController < ApplicationController
   end
 
   def like
-    LbLike.run(image_id: params[:id], user: current_user)
+    authorize image = Image.find(params[:id])
+    LbLike.run(image_id: params[:id], image: image)
     redirect_back(fallback_location: root_path)
   end
 
@@ -26,30 +27,12 @@ class ImagesController < ApplicationController
   end
 
   def comment
-    if params[:comment][:parent_id].to_i > 0
-      parent = Comment.find_by_id(params[:comment].delete(:parent_id))
-      comment = parent.children.build(comments_params)
-    else
-      comment = Comment.new(comments_params)
-    end
-
-    comment.save
+    CreateComment.run(params.fetch(:comment, {}))
     redirect_back(fallback_location: root_path)
   end
 
   def delete
-    image = current_user.images.find(params[:id])
-    if image
-      LbDelete.run(image_id: image.id)
-      image.destroy
-
-    end
+    ImageDelete.run(id: params[:id].to_i)
     redirect_to user_path(current_user)
   end
-
-  private
-
-    def comments_params
-      params.require(:comment).permit(:text, :parent_id, :image_id, :user_id)
-    end
 end

@@ -36,8 +36,9 @@ gem 'bootstrap-sass',       '3.3.6'
 # For passwords hashes
 gem 'bcrypt',               '3.1.7'
 gem 'authlogic'
-gem 'will_paginate'
-gem 'bootstrap-will_paginate'
+
+# gem 'will_paginate'
+# gem 'bootstrap-will_paginate'
 # gem 'jquery-ui-rails'
 
 gem 'redis'
@@ -65,10 +66,19 @@ gem 'figaro'
 # serializer for api
 gem 'active_model_serializers', '~> 0.10.0'
 
+# admin
 gem 'activeadmin', github: 'activeadmin'
+
+# authorization
 gem 'pundit'
+
+# state machine
 gem 'aasm'
+
+# pagination
 gem 'kaminari'
+gem 'kaminari-bootstrap'
+# gem 'bootstrap-kaminari-views'
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

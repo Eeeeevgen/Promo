@@ -1,6 +1,6 @@
-require 'pp'
-
 class Api::V1::UsersController < Api::V1::BaseController
+  before_action :authenticate
+
   def show
     user = User.find(params[:id])
     render json: user
@@ -11,8 +11,15 @@ class Api::V1::UsersController < Api::V1::BaseController
     render json: users
   end
 
-  # def destroy
-  #   pp params
-  #   render json: params.to_json
-  # end
+  def create
+    # ?
+  end
+
+  def destroy
+    user = User.find(params[:id])
+    authorize [:api, :v1, user]
+    user.destroy
+    render json: {user: user, status: :destroyed}
+  end
+
 end

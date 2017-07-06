@@ -1,4 +1,6 @@
 class Image < ApplicationRecord
+  paginates_per 6
+
   include AASM
 
   mount_uploader :image, ImageUploader

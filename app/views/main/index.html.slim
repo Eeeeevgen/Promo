@@ -1,22 +1,21 @@
 h1 Top-ranked images
 div.row-centered
-  = will_paginate @images
+  /= will_paginate @images
+  = paginate @images
 
 - if @images
   div.row.row-centered
     - if @images.length > 0
-      = render 'layouts/image', current_image: @images[0]
+      = render 'layouts/image', current_image: @images[0], context: :index
     - if @images.length > 1
-      = render 'layouts/image', current_image: @images[1]
+      = render 'layouts/image', current_image: @images[1], context: :index
     - if @images.length > 2
-      = render 'layouts/image', current_image: @images[2]
+      = render 'layouts/image', current_image: @images[2], context: :index
 
   div.row.row-centered
     - if @images.length > 3
-      = render 'layouts/image', current_image: @images[3]
+      = render 'layouts/image', current_image: @images[3], context: :index
     - if @images.length > 4
-      = render 'layouts/image', current_image: @images[4]
+      = render 'layouts/image', current_image: @images[4], context: :index
     - if @images.length > 5
-      = render 'layouts/image', current_image: @images[5]
-
-= LbTop.run!
+      = render 'layouts/image', current_image: @images[5], context: :index

@@ -2,8 +2,9 @@ nav.navbar.navbar-default.navbar-fixed-top
   .container
     #myNavbar.collapse.navbar-collapse
       ul.nav.navbar-nav.navbar-right
-        li
-          = link_to "Test", '/test'
+        -if current_user && current_user.admin?
+          li
+            = link_to "Admin", '/admin'
         li
           = link_to "Home", root_path
         - if current_user

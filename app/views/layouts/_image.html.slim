@@ -9,9 +9,12 @@ div.thumbnail.thumbnail-col
       div.count
         = current_image.likes.size
   span.rating
-    | Rating:
+    = "Place: "
     b
       = current_rating(current_image)
-  - if current_user && current_user.id == params[:id].to_i
+  hr
+  - if context == :show && policy(current_image).partial?
+    p style="margin-bottom: 0;"
+      = "Status: #{current_image.aasm_state}"
     p style="margin-bottom: 0;"
       = link_to 'delete', "/images/#{current_image.id}", method: :delete, style: "color: red;", data: {confirm: "Are you sure?"}

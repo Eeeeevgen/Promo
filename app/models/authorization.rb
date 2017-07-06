@@ -12,7 +12,8 @@ class Authorization < ApplicationRecord
                         :email => auth_hash["info"]["email"],
                         :password => auth_hash.credentials.token,
                         :password_confirmation => auth_hash.credentials.token,
-                        :remote_avatar_url => auth_hash["info"]["image"]
+                        :remote_avatar_url => auth_hash["info"]["image"],
+                        :token => SecureRandom.urlsafe_base64
         user.save!
       end
       auth = create :user => user, :provider => auth_hash["provider"], :uid => auth_hash["uid"]

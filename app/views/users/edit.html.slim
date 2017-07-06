@@ -4,8 +4,7 @@
 
 div.row style="margin-top:20px"
   div.col-xs-2
-    - if @avatar
-      = image_tag @avatar, class: "img-thumbnail"
+    = image_tag @user.avatar.url, class: "img-thumbnail"
     h2
       | Update avatar:
     = form_tag "/avatar", multipart: true do
@@ -17,12 +16,17 @@ div.row style="margin-top:20px"
       span.profile_header
         = "Username : "
       span.profile_data
-        = current_user.name
+        = @user.name
     .well.well-sm
       span.profile_header
         = "E-mail : "
       span.profile_data
-        = current_user.email
+        = @user.email
+    .well.well-sm
+      span.profile_header
+        = "API token: "
+      span.profile_data
+        = @user.token
 
     div class="share" style="margin-top: 0px;"
       b Add auth methods via social networks:

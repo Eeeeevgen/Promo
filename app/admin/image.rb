@@ -20,7 +20,9 @@ ActiveAdmin.register Image do
     column :image do |image|
       link_to (image_tag image.image.thumb.url), admin_image_path(image)
     end
-    column :user_id
+    column "User" do |image|
+      User.find(image.user_id).name
+    end
     column :likes_count
     column 'State', :aasm_state
     actions defaults: false do |image|

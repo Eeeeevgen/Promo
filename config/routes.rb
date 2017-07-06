@@ -9,8 +9,6 @@ Rails.application.routes.draw do
 
   root "main#index"
 
-  get "/test" => "main#test"
-
   get '/login', :to => 'sessions#new', :as => :login
   post '/login' => 'sessions#create', as: :login_post
 
@@ -37,8 +35,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:index, :create, :show, :update, :destroy]
-      resources :images, only: [:index, :create, :show, :update, :destroy]
+      resources :users, only: [:index, :create, :show, :destroy]
+      resources :images, only: [:index, :create, :show, :destroy]
     end
   end
 end

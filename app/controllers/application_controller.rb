@@ -1,17 +1,17 @@
 class ApplicationController < ActionController::Base
+  include Pundit
+
   protect_from_forgery with: :exception
+
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
-  helper_method :current_user_session, :current_user, :current_user_admin?, :username, :avatar_url, :avatar_thumb_url, :like_button_style
+  rescue_from Pundit::NotAuthorizedError, with: :permission_denied
+
+  helper_method :current_user_session, :current_user, :username, :avatar_thumb_url, :like_button_style
 
   def puts_marked(input)
     puts 1111111111
     puts input
     puts 1111111111
-  end
-
-  def not_found
-    # render json: {error: 'Not found', status: 404}
-    redirect_to root_path
   end
 
   private
@@ -27,10 +27,6 @@ class ApplicationController < ActionController::Base
     end
 
     def require_admin
-      # puts 11111111111111111
-      # puts current_user
-      # puts current_user.admin
-      # puts 11111111111111111
       if !(current_user && current_user.admin)
         flash[:danger] = 'Access denied!'
         redirect_to root_path
@@ -38,22 +34,12 @@ class ApplicationController < ActionController::Base
     end
 
     def username(id)
-      user = User.find(id)
-      if user
-        user.name
-      else
-        "none"
-      end
-    end
-
-    def avatar_url(id)
-      user = User.find(id)
-      user.avatar.blank? ? "default_avatar.png" : user.avatar
+      user = User.find(id).name
     end
 
     def avatar_thumb_url(id)
       user = User.find(id)
-      user.avatar.blank? ? "default_avatar.png" : user.avatar.thumb
+      user.avatar.thumb.url
     end
 
     def like_button_style(image)
@@ -65,6 +51,16 @@ class ApplicationController < ActionController::Base
       else
         return "opacity: 0.5;"
       end
+    end
+
+    def not_found
+      # render json: {error: 'Not found', status: 404}
+      redirect_to root_path
+    end
+
+    def permission_denied
+      flash[:danger] = "Authorization error"
+      redirect_to request.referrer || root_path
     end
 end
 
