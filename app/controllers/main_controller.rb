@@ -4,7 +4,7 @@ class MainController < ApplicationController
   def index
     @top = LbTop.run!
     # @images = Image.all.order(likes_count: :desc).paginate(page: params[:page], :per_page => 6)
-    @images = Image.where(aasm_state: :accepted).order(likes_count: :desc).paginate(page: params[:page], :per_page => 6)
+    @images = Image.where(aasm_state: :accepted).order('likes_count DESC').paginate(page: params[:page], :per_page => 6)
   end
 
   def test
