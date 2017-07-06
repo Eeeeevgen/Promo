@@ -5,7 +5,17 @@ ActiveAdmin.register Image do
 
   config.sort_order = "aasm_state_desc"
 
+  batch_action :destroy do |ids|
+    ids.each do |id|
+      LbDelete.run(image_id: id)
+      Image.find(id).destroy
+    end
+    redirect_back(fallback_location: admin_images_path)
+  end
+
+
   index do
+    selectable_column
     column :id
     column :image do |image|
       link_to (image_tag image.image.thumb.url), admin_image_path(image)
@@ -23,13 +33,6 @@ ActiveAdmin.register Image do
       link_to "Delete", admin_image_path(image), method: :delete, "data-confirm" => "Are you sure?"
     end
   end
-
-  # index as: :table do |image|
-  #   column :id
-  #   column :image do |image|
-  #     link_to (image_tag image.image.thumb.url), admin_image_path(image)
-  #   end
-  # end
 
   show do
     attributes_table do
