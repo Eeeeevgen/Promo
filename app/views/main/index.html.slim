@@ -19,3 +19,6 @@ div.row-centered
       = render 'layouts/image', current_image: @images[4], context: :index
     - if @images.length > 5
       = render 'layouts/image', current_image: @images[5], context: :index
+  - if @images.length == 0
+    h2 style="text-align: center;"
+     | No images yet, be the first!
