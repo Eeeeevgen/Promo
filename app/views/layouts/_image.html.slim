@@ -11,10 +11,13 @@ div.thumbnail.thumbnail-col
   span.rating
     = "Place: "
     b
-      = current_rating(current_image)
-  hr
+      - if current_image.aasm_state == "accepted"
+        = current_rating(current_image)
+      - else
+        = "None"
   - if context == :show && policy(current_image).partial?
-    p style="margin-bottom: 0;"
-      = "Status: #{current_image.aasm_state}"
-    p style="margin-bottom: 0;"
-      = link_to 'delete', "/images/#{current_image.id}", method: :delete, style: "color: red;", data: {confirm: "Are you sure?"}
+    hr
+      p style="margin-bottom: 0;"
+        = "Status: #{current_image.aasm_state}"
+      p style="margin-bottom: 0;"
+        = link_to 'delete', "/images/#{current_image.id}", method: :delete, style: "color: red;", data: {confirm: "Are you sure?"}

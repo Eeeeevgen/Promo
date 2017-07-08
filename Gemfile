@@ -52,6 +52,7 @@ gem 'omniauth-google-oauth2'
 
 # image uploading and modifying
 gem 'carrierwave', '~> 1.1.0'
+gem 'carrierwave-base64'
 gem 'mini_magick', '~> 4.3'
 
 # for service objects
@@ -79,6 +80,7 @@ gem 'aasm'
 gem 'kaminari'
 gem 'kaminari-bootstrap'
 # gem 'bootstrap-kaminari-views'
+
 
 group :development, :test do
   # Use sqlite3 as the database for Active Record

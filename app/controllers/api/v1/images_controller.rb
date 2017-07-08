@@ -1,18 +1,25 @@
+require 'pp'
+
 class Api::V1::ImagesController < Api::V1::BaseController
-  before_action :authenticate
+  def index
+    images = Image.all.order(likes_count: :desc)
+    render json: images
+  end
 
   def show
     image = Image.find(params[:id])
     render json: image
   end
 
-  def index
-    images = Image.all.order(likes_count: :desc)
-    render json: images
-  end
-
   def create
-    # ?
+    authorize [:api, :v1, Image]
+    if params[:image]
+      # current_user.images.create(params[:image]) # doesn't work?
+      i = current_user.images.new
+      i.image = params[:image]
+      i.save
+    end
+    render json: {status: :uploaded}
   end 
 
   def destroy

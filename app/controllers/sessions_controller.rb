@@ -17,6 +17,7 @@ class SessionsController < ApplicationController
     if outcome[:status] == :success
       redirect_to root_path
     else
+      @user_session = UserSession.new()
       render :new
     end
   end

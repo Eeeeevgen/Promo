@@ -15,7 +15,7 @@ class Api::V1::ImagePolicy
   end
 
   def create?
-    true
+    @user
   end
 
   def destroy?

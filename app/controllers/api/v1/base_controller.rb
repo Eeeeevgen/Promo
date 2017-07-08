@@ -1,3 +1,5 @@
+require 'pp'
+
 class Api::V1::BaseController < ApplicationController
   include Pundit
 
@@ -5,6 +7,7 @@ class Api::V1::BaseController < ApplicationController
   rescue_from ActiveRecord::RecordNotFound, with: :not_found
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
   before_action :destroy_session
+  before_action :authenticate
 
   def destroy_session
     request.session_options[:skip] = true
