@@ -22,7 +22,7 @@
 
 .byebug_history
 
-public/uploads/
+public/uploads/*
 config/application.yml
 config/secrets.yml
-.idea/
+.idea/*
