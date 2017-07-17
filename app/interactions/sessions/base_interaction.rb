@@ -1,6 +1,5 @@
-module SessionHelper
-  private
-
+module Sessions
+  class BaseInteraction < ActiveInteraction::Base
     def current_user_session
       return @current_user_session if defined?(@current_user_session)
       @current_user_session = UserSession.find
@@ -10,4 +9,5 @@ module SessionHelper
       return @current_user if defined?(@current_user)
       @current_user = current_user_session && current_user_session.user
     end
+  end
 end

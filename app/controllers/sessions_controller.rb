@@ -7,10 +7,10 @@ class SessionsController < ApplicationController
 
   def create
     if auth_hash = request.env['omniauth.auth']
-      outcome = CreateSessionOmniauth.run!(auth_hash: auth_hash)
+      outcome = Sessions::CreateOmniauth.run!(auth_hash: auth_hash)
       # redirect_to edit_user_path(current_user)
     else
-      outcome = CreateSessionCommon.run!(params.fetch(:user_session, {}))
+      outcome = Sessions::CreateCommon.run!(params.fetch(:user_session, {}))
     end
 
     flash[outcome[:status]] = outcome[:message]

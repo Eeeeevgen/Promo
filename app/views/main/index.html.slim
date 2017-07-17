@@ -1,24 +1,17 @@
+- provide(:title, "Promo")
+
 h1 Top-ranked images
-div.row-centered
-  /= will_paginate @images
+.row-centered
   = paginate @images
 
-- if @images
-  div.row.row-centered
-    - if @images.length > 0
-      = render 'layouts/image', current_image: @images[0], context: :index
-    - if @images.length > 1
-      = render 'layouts/image', current_image: @images[1], context: :index
-    - if @images.length > 2
-      = render 'layouts/image', current_image: @images[2], context: :index
+.row.row-centered
+  - @images[0..2].each do |image|
+    = render image, current_image: image, context: :index
+- if @images.length > 3
+  .row.row-centered
+    - @images[3..5].each do |image|
+      = render image, current_image: image, context: :index
 
-  div.row.row-centered
-    - if @images.length > 3
-      = render 'layouts/image', current_image: @images[3], context: :index
-    - if @images.length > 4
-      = render 'layouts/image', current_image: @images[4], context: :index
-    - if @images.length > 5
-      = render 'layouts/image', current_image: @images[5], context: :index
-  - if @images.length == 0
-    h2 style="text-align: center;"
-     | No images yet, be the first!
+- if @images.empty?
+  h2 style="text-align: center;"
+   | No images yet, be the first!

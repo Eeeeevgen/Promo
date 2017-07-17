@@ -10,7 +10,7 @@ html
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
     = render 'layouts/header'
-    div.background
+    .background
       .container#main
         - flash.each do |message_type, message|
           = content_tag(:div, message, class: "alert alert-#{message_type}")

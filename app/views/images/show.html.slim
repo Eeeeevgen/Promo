@@ -1,6 +1,8 @@
+- provide(:title, "Image #{@image.id} by #{@image.user.name}")
+
 .row-centered
   .thumbnail-show
-    = image_tag @image.image.url style:"width:100%;"
+    = image_tag @image.image.url style: "width: 100%;"
     .caption
       .caption-content.left
         = link_to(@image.user.name, user_path(@image.user))
@@ -12,40 +14,24 @@
         = " "
         = @image.likes.size
       .caption-content.right
-          = "Place: "
-          = current_rating(@image)
-    /div.caption
-    /  p
-    /    = link_to(@image.user.name, user_path(@image.user))
-    /  div.like
-    /    = link_to(image_tag('like.png'), "/images/#{@image.id}/like", style: like_button_style(@image))
-    /    div.count
-    /      = @image.likes.size
-    /  span.rating
-    /    | Rating:
-    /    b
-    /      = current_rating(@image)
-    /  - if policy(@image).partial?
-    /    p style="margin-bottom: 0;"
-    /      = link_to 'delete', "/images/#{@image.id}", method: :delete, style: "color: red;", data: {confirm: "Are you sure?"}
+        = "Place: "
+        = current_rating(@image)
 
+- if policy(@image).add_comment?
+  .row.row-centered style="margin-top: 20px;"
+    = form_for @comment, url: "/addcomment", html: {class: "form-inline", style: "margin-bottom: 5px;"} do |f|
+      .form-group
+        /= label_tag :p, "", id: :parent_info, style:"margin-right: 10px;"
+        = f.text_area :text, placeholder: "Add your comment here", class: "form-control", id: "comment_input"
+        = f.hidden_field :image_id, value: params[:id]
+        = f.hidden_field :user_id, value: current_user.id
+        = f.hidden_field :parent_id, value: nil, id:"parent_id"
+        = f.submit "Send", class: "btn-success btn-md form-control", id: "btn-comment"
+  .row.row-centered
+    = label_tag :p, "Reply to: None", id: :parent_info, style:"margin-bottom: 10px; visibility: hidden;"
 
-div.row.row-centered style="margin-top: 20px;"
-  = form_for @comment, url: "/addcomment", html: {class: "form-inline", style: "margin-bottom: 5px;"} do |f|
-    div.form-group
-      /= label_tag :p, "", id: :parent_info, style:"margin-right: 10px;"
-      = f.text_area :text, placeholder: "Add your comment here", class: "form-control", id: "comment_input"
-      = f.hidden_field :image_id, value: params[:id]
-      = f.hidden_field :user_id, value: current_user.id
-      = f.hidden_field :parent_id, value: nil, id:"parent_id"
-      = f.submit "Send", class: "btn-success btn-md form-control", id: "btn-comment"
-div.row.row-centered
-  = label_tag :p, "123", id: :parent_info, style:"margin-bottom: 10px; visibility: hidden;"
-
-
-ul class="media-list"
+ul.media-list
   = comments_tree_for @comments
-
 
 javascript:
     function set_parent_id(pid, name) {

@@ -7,10 +7,14 @@ class ImagePolicy
   end
 
   def partial?
-    @user && @user.id == @record.user.id ? true : false
+    @user && @user.id == @record.user.id
   end
 
   def like?
-    @user && @record.user.id != @user.id ? true : false
+    @user && @record.user.id != @user.id
+  end
+
+  def add_comment?
+    @user
   end
 end

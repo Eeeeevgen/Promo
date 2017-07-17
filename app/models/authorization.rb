@@ -1,5 +1,3 @@
-require 'pp'
-
 class Authorization < ApplicationRecord
   belongs_to :user
   validates :provider, :uid, :presence => true
@@ -8,7 +6,6 @@ class Authorization < ApplicationRecord
     unless auth = find_by_provider_and_uid(auth_hash["provider"], auth_hash["uid"])
       user =  User.find_by(email: auth_hash["info"]["email"])
       unless user
-        pp auth_hash
         user = User.new :name => auth_hash["info"]["name"],
                         :email => auth_hash["info"]["email"],
                         :password => auth_hash["credentials"]["token"],

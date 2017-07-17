@@ -1,32 +1,33 @@
 - provide(:title, 'User profile')
+
 h1
   = username(params[:id].to_i)
 
-- if current_user.id == params[:id].to_i
-  div.upload
+- if policy(@user).upload_form?
+  .upload
     h2
       | Upload new:
     = form_tag "/uploadimage", multipart: true do
       = file_field_tag :image, name: "images[]", multiple: true
       = submit_tag "Upload", class: "btn btn-success"
 
-div.row-centered
+.row-centered
   = paginate @images
 
 - if @images
 
-  div.row.row-centered
+  .row.row-centered
     - if @images.length > 0
-      = render 'layouts/image', current_image: @images[0], context: :show
+      = render @images[0], current_image: @images[0], context: :show
     - if @images.length > 1
-      = render 'layouts/image', current_image: @images[1], context: :show
+      = render @images[1], current_image: @images[1], context: :show
     - if @images.length > 2
-      = render 'layouts/image', current_image: @images[2], context: :show
+      = render @images[2], current_image: @images[2], context: :show
 
-  div.row.row-centered
+  .row.row-centered
     - if @images.length > 3
-      = render 'layouts/image', current_image: @images[3], context: :show
+      = render @images[3], current_image: @images[3], context: :show
     - if @images.length > 4
-      = render 'layouts/image', current_image: @images[4], context: :show
+      = render @images[4], current_image: @images[4], context: :show
     - if @images.length > 5
-      = render 'layouts/image', current_image: @images[5], context: :show
+      = render @images[5], current_image: @images[5], context: :show

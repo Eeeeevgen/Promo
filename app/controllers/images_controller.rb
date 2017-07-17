@@ -4,13 +4,13 @@ class ImagesController < ApplicationController
 
   def show
     @image = Image.find(params[:id])
-    @comments = Comment.where(:image_id => params[:id]).hash_tree
+    @comments = @image.comments.hash_tree
     @comment = Comment.new
   end
 
   def like
     authorize image = Image.find(params[:id])
-    LbLike.run(image_id: params[:id], image: image)
+    LeaderboardI::LikeImage.run(image_id: params[:id], image: image)
     redirect_back(fallback_location: root_path)
   end
 
@@ -27,12 +27,12 @@ class ImagesController < ApplicationController
   end
 
   def comment
-    CreateComment.run(params.fetch(:comment, {}))
+    Comments::Create.run(params.fetch(:comment, {}))
     redirect_back(fallback_location: root_path)
   end
 
   def delete
-    ImageDelete.run(id: params[:id].to_i)
+    Images::Delete.run(id: params[:id].to_i)
     redirect_to user_path(current_user)
   end
 end

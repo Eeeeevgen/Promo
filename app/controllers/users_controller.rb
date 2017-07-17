@@ -17,8 +17,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @images = User.find(params[:id]).images.page(params[:page]).per(6)
-    # @images = Image.where(aasm_state: :accepted).order(likes_count: :desc).page(params[:page]).per(6)
+    @user = User.find(params[:id])
+    @images = @user.images.page(params[:page]).per(6)
   end
 
   def edit

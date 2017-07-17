@@ -7,6 +7,10 @@ class UserPolicy
   end
 
   def edit?
-    @user && @user.id == @record.id ? true : false
+    @user && @user.id == @record.id
+  end
+
+  def upload_form?
+    @user && @user.id == @record.id
   end
 end

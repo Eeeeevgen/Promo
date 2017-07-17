@@ -1,12 +1,12 @@
-div.thumbnail.thumbnail-col
-  div.image_container
+.thumbnail.thumbnail-col
+  .image_container
     = link_to(image_tag(current_image.image.thumb.url), image_path(current_image))
-  div.caption
+  .caption
     p
       = link_to(current_image.user.name, user_path(current_image.user))
-    div.like
+    .like
       = link_to(image_tag('like.png'), "/images/#{current_image.id}/like", style: like_button_style(current_image))
-      div.count
+      .count
         = current_image.likes.size
   span.rating
     = "Place: "

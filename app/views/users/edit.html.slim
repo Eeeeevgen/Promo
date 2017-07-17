@@ -2,8 +2,8 @@
   h1
     | Your data
 
-div.row style="margin-top:20px"
-  div.col-xs-2
+.row style="margin-top:20px"
+  .col-xs-2
     = image_tag @user.avatar.url, class: "img-thumbnail"
     h2
       | Update avatar:
@@ -28,9 +28,9 @@ div.row style="margin-top:20px"
       span.profile_data
         = @user.token
 
-    div class="share" style="margin-top: 0px;"
+    .share style="margin-top: 0px;"
       b Add auth methods via social networks:
       br
-      a class="social social-vk" href="/auth/vkontakte"
-      a class="social social-fb" href="/auth/facebook"
-      a class="social social-gp" href="/auth/google"
+      a.social.social-vk href="/auth/vkontakte"
+      a.social.social-fb href="/auth/facebook"
+      a.social.social-gp href="/auth/google_oauth2"

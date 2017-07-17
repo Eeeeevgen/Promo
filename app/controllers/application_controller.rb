@@ -1,5 +1,9 @@
 class ApplicationController < ActionController::Base
   include Pundit
+  # interactions
+  # include LeaderboardI
+  # include Comments
+  # include Images
 
   protect_from_forgery with: :exception
 
@@ -7,12 +11,6 @@ class ApplicationController < ActionController::Base
   rescue_from Pundit::NotAuthorizedError, with: :permission_denied
 
   helper_method :current_user_session, :current_user, :username, :avatar_thumb_url, :like_button_style
-
-  def puts_marked(input)
-    puts 1111111111
-    puts input
-    puts 1111111111
-  end
 
   private
 

@@ -1,18 +1,31 @@
 ActiveAdmin.register Image do
-  scope("Accepted") { |scope| scope.where(aasm_state: :accepted) }
-  scope("Uploaded") { |scope| scope.where(aasm_state: :uploaded) }
-  scope("Declined") { |scope| scope.where(aasm_state: :declined) }
+  scope :uploaded
+  scope :accepted
+  scope :declined
 
   config.sort_order = "aasm_state_desc"
 
   batch_action :destroy do |ids|
     ids.each do |id|
-      LbDelete.run(image_id: id)
+      LeaderboardI::Delete.run(image_id: id)
       Image.find(id).destroy
     end
     redirect_back(fallback_location: admin_images_path)
   end
 
+  member_action :accept, method: :get do
+    image = Image.find(params[:id])
+    image.accept!
+    LeaderboardI::NewImage.run(image_id: image.id, score: image.likes_count)
+    redirect_back(fallback_location: admin_images_path)
+  end
+
+  member_action :decline, method: :get do
+    image = Image.find(params[:id])
+    image.decline!
+    LeaderboardI::Delete.run(image_id: image.id)
+    redirect_back(fallback_location: admin_images_path)
+  end
 
   index do
     selectable_column
@@ -26,13 +39,14 @@ ActiveAdmin.register Image do
     column :likes_count
     column 'State', :aasm_state
     actions defaults: false do |image|
-      a "View", href: admin_image_path(image)
+
+      item "View", admin_image_path(image)
       br
-      a "Accept", href: "/admin/images/#{image.id}/accept"
+      item "Accept", accept_admin_image_path(image)
       br
-      a "Decline", href: "/admin/images/#{image.id}/decline"
+      item "Decline", decline_admin_image_path(image)
       br
-      link_to "Delete", admin_image_path(image), method: :delete, "data-confirm" => "Are you sure?"
+      item "Delete", admin_image_path(image), method: :delete, "data-confirm" => "Are you sure?"
     end
   end
 
@@ -46,34 +60,24 @@ ActiveAdmin.register Image do
       row :image do |image|
         image_tag image.image.url
       end
+      row :status do |image|
+        image.aasm_state.capitalize
+      end
+
       row :admin do
-        a 'Accept', href: "/admin/images/#{image.id}/accept"
-        a 'Decline', href: "/admin/images/#{image.id}/decline"
-        link_to "Delete", admin_image_path(image), method: :delete, "data-confirm" => "Are you sure?"
+        link_to('Accept', accept_admin_image_path(image)) + " " +
+            link_to("Decline", decline_admin_image_path(image)) + " " +
+            link_to("Delete", admin_image_path(image), method: :delete, "data-confirm" => "Are you sure?")
       end
 
     end
   end
 
   controller do
-    def accept
-      image = Image.find(params[:id])
-      image.accept!
-      LbNewImage.run(image_id: image.id, score: image.likes_count)
-      redirect_back(fallback_location: admin_images_path)
-    end
-
-    def decline
-      image = Image.find(params[:id])
-      image.decline!
-      LbDelete.run(image_id: image.id)
-      redirect_back(fallback_location: admin_images_path)
-    end
-
     def destroy
       image = Image.find(params[:id])
       if image
-        LbDelete.run(image_id: image.id)
+        LeaderboardI::Delete.run(image_id: image.id)
         image.destroy
       end
       redirect_to admin_images_path

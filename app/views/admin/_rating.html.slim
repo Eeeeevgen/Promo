@@ -1,0 +1,13 @@
+table.ratings
+  tr
+    th Member
+    th Score
+    th Rank
+  - rating.each do |row|
+    tr
+      td
+        = row[:member]
+      td
+        = row[:score]
+      td
+        = row[:rank]
