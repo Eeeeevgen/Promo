@@ -1,20 +1,19 @@
 module Sessions
-  class CreateCommon < Sessions::BaseInteraction
+  class CreateCommon < ActiveInteraction::Base
     string :email
     string :password
     boolean :remember_me
 
     def execute
-      flash = {}
       @user_session = UserSession.new(inputs)
       if @user_session.save
-        message = "Welcome back!"
+        message = 'Welcome back!'
         status = :success
       else
-        message = "Wrong email or password!"
+        message = 'Wrong email or password!'
         status = :danger
       end
-      {message: message, status: status}
+      { message: message, status: status }
     end
   end
 end

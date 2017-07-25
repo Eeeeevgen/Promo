@@ -16,10 +16,10 @@ class Api::V1::UsersController < Api::V1::BaseController
     @user.token = SecureRandom.urlsafe_base64
 
     if @user.save
-      render json: {status: :user_created}, status: 201
-          current_user_session.destroy
+      render json: { status: :user_created }, status: 201
+      current_user_session.destroy
     else
-      render json: {status: :user_creating_error, errors: @user.errors}, status: 400
+      render json: { status: :user_creating_error, errors: @user.errors }, status: 400
     end
   end
 
@@ -27,7 +27,6 @@ class Api::V1::UsersController < Api::V1::BaseController
     user = User.find(params[:id])
     authorize [:api, :v1, user]
     user.destroy
-    render json: {user: user, status: :destroyed}, status: 200
+    render json: { user: user, status: :destroyed }, status: 200
   end
-
 end

@@ -1,16 +1,16 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
-
   resources :users, only: [:new, :create, :show, :edit]
   resources :user_sessions, only: [:create, :destroy]
   resources :images, only: [:show]
 
-  root "main#index"
+  root 'main#index'
 
-  get '/login', :to => 'sessions#new', :as => :login
+  get '/login', to: 'sessions#new', as: :login
   post '/login' => 'sessions#create', as: :login_post
 
-  delete '/logout', :to => 'sessions#destroy', :as => :logout
+  delete '/logout', :to => 'sessions#destroy', as: :logout
 
   get '/register' => 'users#new', as: :register
   post '/register' => 'users#create', as: :register_post
@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   post '/avatar' => 'users#avatar'
 
   post '/addcomment' => 'images#comment'
-  post '/uploadimage' => "images#upload"
+  post '/uploadimage' => 'images#upload'
 
   namespace :api do
     namespace :v1 do
@@ -39,6 +39,6 @@ Rails.application.routes.draw do
   end
 end
 
-Rails.application.routes.default_url_options = {
-    host: 'localhost:3000'
-}
+# Rails.application.routes.default_url_options = {
+#     host: 'localhost:3000'
+# }

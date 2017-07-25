@@ -1,4 +1,4 @@
-- provide(:title, "Log in")
+- provide(:title, 'Log in')
 h1
   | Sign in
 .row
@@ -8,11 +8,11 @@ h1
       = f.email_field :email, class: 'form-control'
       = f.label :password
       = f.password_field :password, class: 'form-control'
-      = f.label :remember_me, class: "checkbox inline" do
+      = f.label :remember_me, class: 'checkbox inline' do
         = f.check_box :remember_me
         span
           | Remember me on this computer
-      = f.submit "Log in", class: "btn btn-primary"
+      = f.submit 'Log in', class: 'btn btn-primary'
 
 
 .row.row-centered
@@ -20,6 +20,6 @@ h1
     .share
       b Enter via social networks:
       br
-      a.social.social-vk href="/auth/vkontakte"
-      a.social.social-fb href="/auth/facebook"
-      a.social.social-gp href="/auth/google_oauth2"
+      a.social.social-vk href='/auth/vkontakte'
+      a.social.social-fb href='/auth/facebook'
+      a.social.social-gp href='/auth/google_oauth2'

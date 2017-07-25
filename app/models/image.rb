@@ -13,7 +13,7 @@ class Image < ApplicationRecord
   scope :uploaded, -> { where(aasm_state: :uploaded) }
   scope :declined, -> { where(aasm_state: :declined) }
 
-  aasm :whiny_transitions => false do
+  aasm whiny_transitions: false do
     state :uploaded, initial: true
     state :accepted
     state :declined

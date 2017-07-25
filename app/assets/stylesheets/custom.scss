@@ -1,8 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-/* примеси, переменные и пр.*/
-$gray-medium-light: #eaeaea;
+
 
 /* общие */
 body {
@@ -94,7 +93,7 @@ footer {
   //background-color: grey;
   //margin-top: 45px;
   padding-top: 5px;
-  border-top: 1px solid $gray-medium-light;
+  border-top: 1px solid lightgray;
   color: $gray-light;
   a {
     color: $gray;

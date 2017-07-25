@@ -1,17 +1,14 @@
-- provide(:title, "Promo")
+- provide(:title, 'Promo')
 
 h1 Top-ranked images
 .row-centered
   = paginate @images
 
-.row.row-centered
-  - @images[0..2].each do |image|
-    = render image, current_image: image, context: :index
-- if @images.length > 3
+.container style='width: 720px; padding: 0'
   .row.row-centered
-    - @images[3..5].each do |image|
+    - @images.each do |image|
       = render image, current_image: image, context: :index
 
 - if @images.empty?
-  h2 style="text-align: center;"
-   | No images yet, be the first!
+  h2 style='text-align: center;'
+    | No images yet, be the first!

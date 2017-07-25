@@ -1,0 +1,17 @@
+AllCops:
+  TargetRubyVersion: 2.4
+  Excludes:
+    - db/*
+    - db/migrate/*
+    - bin/*
+    - config/puma.rb
+    - test/**/*
+    - config/initializers/active_admin.rb
+Documentation:
+  Enabled: false
+FrozenStringLiteralComment:
+  Enabled: false
+OrderedGems:
+  Enabled: false
+LineLength:
+  Enabled: false

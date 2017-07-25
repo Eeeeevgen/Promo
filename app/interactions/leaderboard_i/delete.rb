@@ -1,9 +1,9 @@
 module LeaderboardI
-  class Delete < LeaderboardI::BaseInteraction
+  class Delete < ActiveInteraction::Base
     integer :image_id
 
     def execute
-      lb.remove_member(image_id)
+      LB.remove_member(image_id)
     end
   end
 end

@@ -1,5 +1,3 @@
-require 'pp'
-
 class Api::V1::ImagesController < Api::V1::BaseController
   def index
     images = Image.all.order(likes_count: :desc)
@@ -19,14 +17,15 @@ class Api::V1::ImagesController < Api::V1::BaseController
       i.image = params[:image]
       i.save
     end
-    render json: {status: :uploaded}
-  end 
+    render json: { status: :uploaded }
+  end
 
   def destroy
     image = Image.find(params[:id])
     authorize [:api, :v1, image]
     image.destroy
-    render json: {image: image, status: :destroyed}
+    LeaderboardI::Delete.run(image_id: image.id)
+    render json: { image: image, status: :destroyed }
   end
 end
 

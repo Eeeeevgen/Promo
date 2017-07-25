@@ -9,7 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(users_params)
     @user.token = SecureRandom.urlsafe_base64
     if @user.save
-      flash[:success] = "Account registered!"
+      flash[:success] = 'Account registered!'
       redirect_to root_path
     else
       render :new
@@ -29,13 +29,13 @@ class UsersController < ApplicationController
   def avatar
     current_user.avatar = params[:image]
     current_user.save
-    flash[:success] = "Avatar updated"
+    flash[:success] = 'Avatar updated'
     redirect_to edit_user_path(current_user)
   end
 
   private
 
-    def users_params
-      params.require(:user).permit(:name, :email, :password, :password_confirmation, :token)
-    end
+  def users_params
+    params.require(:user).permit(:name, :email, :password, :password_confirmation, :token)
+  end
 end

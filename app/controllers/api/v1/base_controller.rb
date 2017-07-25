@@ -14,12 +14,12 @@ class Api::V1::BaseController < ApplicationController
   end
 
   def not_found
-    render json: {error: 'Not found', status: 404}
+    render json: { error: 'Not found', status: 404 }
   end
 
   def permission_denied
-    head  :unauthorized
-    return false
+    head :unauthorized
+    false
   end
 
   def current_user
@@ -27,9 +27,10 @@ class Api::V1::BaseController < ApplicationController
   end
 
   private
-    def authenticate
-      authenticate_with_http_token do |token, options|
-        @user = User.find_by(token: token)
-      end
+
+  def authenticate
+    authenticate_with_http_token do |token, options|
+      @user = User.find_by(token: token)
     end
+  end
 end

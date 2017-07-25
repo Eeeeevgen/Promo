@@ -1,16 +1,16 @@
 li.media
   .media-left
     a href=user_path(comment.user_id)
-      = image_tag avatar_thumb_url(comment.user_id), class: "media-object img-thumbnail", style: "width: 64px; height: 64px;"
+      = image_tag avatar_thumb_url(comment.user_id), class: 'media-object img-thumbnail', style: 'width: 64px; height: 64px;'
   .media-body
     h4.media-heading
       a href=user_path(comment.user_id)
         = username(comment.user_id)
-      = ", "
+      = ', '
       = l(comment.created_at, format: '%B, %d %Y %H:%M:%S')
       span onclick="set_parent_id('#{comment.id}', '#{username(comment.user_id)}');"
-        = " "
-        a style="color:green; font-style: italic; font-size: 0.8em; cursor: alias"
-          = "reply"
+        = ' '
+        a style='color:green; font-style: italic; font-size: 0.8em; cursor: alias'
+          = 'reply'
     p
       = comment.text

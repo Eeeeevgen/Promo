@@ -1,9 +1,9 @@
 module LeaderboardI
-  class RankForMember < LeaderboardI::BaseInteraction
+  class RankForMember < ActiveInteraction::Base
     integer :image_id
 
     def execute
-      lb.rank_for(image_id)
+      LB.rank_for(image_id)
     end
   end
 end

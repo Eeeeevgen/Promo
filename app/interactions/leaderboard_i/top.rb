@@ -1,8 +1,8 @@
 module LeaderboardI
-  class Top < LeaderboardI::BaseInteraction
+  class Top < ActiveInteraction::Base
     def execute
       # lb.leaders(1)
-      lb.top(100)
+      LB.top(100)
     end
   end
 end

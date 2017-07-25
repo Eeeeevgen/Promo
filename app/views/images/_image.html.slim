@@ -9,15 +9,15 @@
       .count
         = current_image.likes.size
   span.rating
-    = "Place: "
+    = 'Place: '
     b
-      - if current_image.aasm_state == "accepted"
+      - if current_image.aasm_state == 'accepted'
         = current_rating(current_image)
       - else
-        = "None"
+        | None
   - if context == :show && policy(current_image).partial?
     hr
-      p style="margin-bottom: 0;"
+      p style='margin-bottom: 0;'
         = "Status: #{current_image.aasm_state}"
-      p style="margin-bottom: 0;"
-        = link_to 'delete', "/images/#{current_image.id}", method: :delete, style: "color: red;", data: {confirm: "Are you sure?"}
+      p style='margin-bottom: 0;'
+        = link_to 'delete', "/images/#{current_image.id}", method: :delete, style: 'color: red;', data: {confirm: 'Are you sure?'}

@@ -1,55 +1,3 @@
-// Place all the styles related to the main controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
-
-.share {
-  //width: 270px;
-  display: inline-block;
-  width: 250px;;
-  margin-top: 20px;
-  margin-left: auto;
-  margin-right: auto;
-  text-align:center;
-  padding: 10px;
-  background: #ecf0f1;
-}
-
-.share b {
-  //font-weight: normal;
-  //color: #7f8c8d;
-}
-
-.social {
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
-  background: #bdc3c7;
-  vertical-align: middle;
-  background-size: cover;
-  border-radius: 5px;
-  margin-top: 10px;
-}
-
-.social:last-child{
-  margin-right: 0px;
-}
-
-.social-vk {
-  background: url("social.png") no-repeat -40px 0;
-  background-size: cover;
-}
-
-.social-fb {
-  background: url("social.png") no-repeat 0 0;
-  background-size: cover;
-}
-
-.social-gp {
-  background: url("social.png") no-repeat -120px 0;
-  background-size: cover;
-}
-
 .row-centered {
   text-align:center;
 }
@@ -147,10 +95,6 @@ hr {
   margin-top: 30px;
 }
 
-
-.pagination {
-  margin-bottom: 5px;
-}
 
 .caption {
   padding: 0 !important;
@@ -257,3 +201,4 @@ textarea#comment_input {
   line-height: 2;
   color: ForestGreen;
 }
+

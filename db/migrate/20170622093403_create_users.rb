@@ -8,6 +8,8 @@ class CreateUsers < ActiveRecord::Migration[5.1]
       t.string :persistence_token
       t.string :avatar
       t.string :remote_avatar_url
+      t.string :token
+      t.boolean :admin, default: false
 
       t.timestamps
     end

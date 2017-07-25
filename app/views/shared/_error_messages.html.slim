@@ -1,9 +1,7 @@
 - if object.errors.any?
   #error_explanation
     .alert.alert-danger
-      |  Found 
-      = pluralize(object.errors.count, "error")
-      | : 
+      = "Found #{pluralize(object.errors.count, 'error')} :"
     ul
       - object.errors.full_messages.each do |msg|
         li

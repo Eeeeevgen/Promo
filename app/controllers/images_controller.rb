@@ -1,6 +1,5 @@
 class ImagesController < ApplicationController
-  def new
-  end
+  def new; end
 
   def show
     @image = Image.find(params[:id])
@@ -10,7 +9,7 @@ class ImagesController < ApplicationController
 
   def like
     authorize image = Image.find(params[:id])
-    LeaderboardI::LikeImage.run(image_id: params[:id], image: image)
+    LeaderboardI::LikeImage.run(image_id: params[:id], image: image, current_user: current_user)
     redirect_back(fallback_location: root_path)
   end
 
@@ -32,7 +31,7 @@ class ImagesController < ApplicationController
   end
 
   def delete
-    Images::Delete.run(id: params[:id].to_i)
+    Images::Delete.run(id: params[:id].to_i, current_user: current_user)
     redirect_to user_path(current_user)
   end
 end

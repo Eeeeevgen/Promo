@@ -3,7 +3,7 @@ ActiveAdmin.register Image do
   scope :accepted
   scope :declined
 
-  config.sort_order = "aasm_state_desc"
+  config.sort_order = 'aasm_state_desc'
 
   batch_action :destroy do |ids|
     ids.each do |id|
@@ -33,20 +33,20 @@ ActiveAdmin.register Image do
     column :image do |image|
       link_to (image_tag image.image.thumb.url), admin_image_path(image)
     end
-    column "User" do |image|
+    column 'User' do |image|
       User.find(image.user_id).name
     end
     column :likes_count
     column 'State', :aasm_state
     actions defaults: false do |image|
 
-      item "View", admin_image_path(image)
+      item 'View', admin_image_path(image)
       br
-      item "Accept", accept_admin_image_path(image)
+      item 'Accept', accept_admin_image_path(image)
       br
-      item "Decline", decline_admin_image_path(image)
+      item 'Decline', decline_admin_image_path(image)
       br
-      item "Delete", admin_image_path(image), method: :delete, "data-confirm" => "Are you sure?"
+      item 'Delete', admin_image_path(image), method: :delete, 'data-confirm' => 'Are you sure?'
     end
   end
 
@@ -65,11 +65,10 @@ ActiveAdmin.register Image do
       end
 
       row :admin do
-        link_to('Accept', accept_admin_image_path(image)) + " " +
-            link_to("Decline", decline_admin_image_path(image)) + " " +
-            link_to("Delete", admin_image_path(image), method: :delete, "data-confirm" => "Are you sure?")
+        link_to('Accept', accept_admin_image_path(image)) + ' ' +
+            link_to('Decline', decline_admin_image_path(image)) + ' ' +
+            link_to('Delete', admin_image_path(image), method: :delete, 'data-confirm' => 'Are you sure?')
       end
-
     end
   end
 

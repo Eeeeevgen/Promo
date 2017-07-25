@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?('/')
   "https://github.com/#{repo_name}.git"
 end
 
@@ -24,11 +24,15 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 
+gem 'pg', '0.18.4'
+
 gem 'slim'
 
 gem 'bootstrap-sass',       '3.3.6'
+
 # For passwords hashes
 gem 'bcrypt',               '3.1.7'
+
 gem 'authlogic'
 
 gem 'redis'
@@ -49,7 +53,7 @@ gem 'mini_magick', '~> 4.3'
 gem 'active_interaction', '~> 3.5'
 
 # for making trees from comments model
-gem 'closure_tree', :git => "git://github.com/ClosureTree/closure_tree.git"
+gem 'closure_tree', git: 'git://github.com/ClosureTree/closure_tree.git'
 
 # easy use ENV variable with yml
 gem 'figaro'
@@ -69,12 +73,14 @@ gem 'aasm'
 # pagination
 gem 'kaminari'
 gem 'kaminari-bootstrap'
-# gem 'bootstrap-kaminari-views'
+
+# for admin users
+gem 'devise'
+
+# using amazon s3
+gem 'fog-aws'
 
 group :development, :test do
-  # # Use sqlite3 as the database for Active Record
-  # gem 'sqlite3'
-  gem 'pg',             '0.18.4'
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   # Adds support for Capybara system testing and selenium driver
@@ -91,7 +97,6 @@ group :development do
 end
 
 group :production do
-  gem 'pg',             '0.18.4'
   gem 'rails_12factor', '0.0.2'
 end
 

@@ -1,0 +1,13 @@
+.pagination {
+  margin-bottom: 5px;
+  li.page.active {
+    a {
+      background-color: #dcf1a8 !important;
+      border-color: #dcf1a8 !important;
+      color: green;
+    }
+  }
+  a {
+    color: darkgreen !important;
+  }
+}
