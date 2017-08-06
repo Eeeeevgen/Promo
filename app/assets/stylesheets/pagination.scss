@@ -1,5 +1,5 @@
 .pagination {
-  margin-bottom: 5px;
+  margin: 10px 0px;
   li.page.active {
     a {
       background-color: #dcf1a8 !important;
@@ -10,4 +10,20 @@
   a {
     color: darkgreen !important;
   }
+}
+
+#per_page {
+  display: inline-block;
+  width: 65px;
+  margin: 10px 5px;
+  //color: darkgreen;
+}
+
+#per_page_span {
+  //color: darkgreen;
+}
+
+#per_page:focus{
+  border-color: #8CAC42 !important;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(140, 172, 66, 0.6) !important;
 }

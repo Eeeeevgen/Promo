@@ -1,3 +1,5 @@
+require 'pp'
+
 module Sessions
   class CreateOmniauth < ActiveInteraction::Base
     hash :auth_hash,
@@ -7,6 +9,7 @@ module Sessions
            default: nil
 
     def execute
+      pp auth_hash
       if current_user
         auth = Authorization.find_by(provider: auth_hash['provider'], uid: auth_hash['uid'])
         if !auth

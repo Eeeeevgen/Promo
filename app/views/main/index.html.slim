@@ -1,13 +1,30 @@
 - provide(:title, 'Promo')
 
 h1 Top-ranked images
+.row
+  .col-xs-8.col-sm-6.col-sm-offset-3.row-centered
+    = paginate @images
+  .col-xs-4.col-sm-3.row-centered
+    = form_tag '/', id: "per_page_form"
+    span#per_page_span
+      | Per page:
+    = select_tag 'per', options_for_select([[8, 8], [16, 16], [24, 24], [32, 32]], @per_page),
+            form: 'per_page_form',
+            class: 'selectpicker form-control',
+            id: 'per_page',
+            onchange: "this.form.submit();"
+
+.row.row-centered
+  - @images.each do |image|
+    .col-xs-12.col-sm-6.col-md-4.col-lg-3
+      = render image, current_image: image, context: :index
+
+/.row.row-centered
+/  - @images.each do |image|
+/    = render image, current_image: image, context: :index
+
 .row-centered
   = paginate @images
-
-.container style='width: 720px; padding: 0'
-  .row.row-centered
-    - @images.each do |image|
-      = render image, current_image: image, context: :index
 
 - if @images.empty?
   h2 style='text-align: center;'

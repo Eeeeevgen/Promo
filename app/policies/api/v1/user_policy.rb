@@ -21,4 +21,8 @@ class Api::V1::UserPolicy
   def destroy?
     @user && (@user.admin? || @user.id == @record.id)
   end
+
+  def token_destroy?
+    @user
+  end
 end

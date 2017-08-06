@@ -6,11 +6,12 @@ Rails.application.routes.draw do
   resources :images, only: [:show]
 
   root 'main#index'
+  post '/' => 'main#index'
 
-  get '/login', to: 'sessions#new', as: :login
+  get '/login' => 'sessions#new', as: :login
   post '/login' => 'sessions#create', as: :login_post
 
-  delete '/logout', :to => 'sessions#destroy', as: :logout
+  delete '/logout' => 'sessions#destroy', as: :logout
 
   get '/register' => 'users#new', as: :register
   post '/register' => 'users#create', as: :register_post
@@ -35,6 +36,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:index, :create, :show, :destroy]
       resources :images, only: [:index, :create, :show, :destroy]
+      post 'token' => 'users#token'
+      delete 'token' => 'users#token_destroy'
     end
   end
 end

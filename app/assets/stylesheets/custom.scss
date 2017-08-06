@@ -1,8 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-
-
 /* общие */
 body {
   padding-top: 50px !important;
@@ -32,10 +30,9 @@ h1 {
   font-size: 4em;
   letter-spacing: -2px;
   margin-bottom: 20px;
-  margin-top: 30px;
+  margin-top: 20px;
   text-align: center;
   color: #dcf1a8;
-  //text-shadow: darkgreen 0 0 6px;
   text-shadow: darkgreen 1px 1px 3px,
   darkgreen -1px -1px 3px,
   darkgreen -1px 1px 3px,
@@ -63,42 +60,29 @@ a {
   }
 }
 
-///* заголовок */
-//#logo {
-//  float: left;
-//  margin-right: 10px;
-//  font-size: 1.7em;
-//  color: white;
-//  letter-spacing: -1px;
-//  padding-top: 9px;
-//  font-weight: bold;
-//  &:hover {
-//    color: white;
-//    text-decoration: none;
-//  }
-//}
-
 .dropdown-menu {
   width: 100%;
   text-align: right;
 }
 
 .navbar {
-  margin-bottom: 0px !important;
+  margin-bottom: 0 !important;
 }
 
-
-/* подвал */
+/* footer */
 footer {
   //background-color: grey;
   //margin-top: 45px;
   padding-top: 5px;
   border-top: 1px solid lightgray;
-  color: $gray-light;
+  //color: $gray-light;
+  color: LightGray;
   a {
-    color: $gray;
+    //color: $gray;
+    color: gray;
     &:hover {
-      color: $gray-darker;
+      //color: $gray-darker;
+      color: DarkGray;
     }
   }
   small {
@@ -119,11 +103,6 @@ footer {
   }
 }
 
-//#footer-left {
-//  margin-left: 0;
-//  padding-left: 0;
-//}
-
 /* формы */
 input, select, .uneditable-input {
   border: 1px solid #bbb;
@@ -135,11 +114,6 @@ textarea {
   min-height: 100px;
   background: white !important;
 }
-
-
-//input {
-//  height: auto !important;
-//}
 
 #error_explanation {
   color: crimson;
@@ -156,7 +130,6 @@ textarea {
   }
 }
 
-
 .row-centered {
   text-align:center;
 }
@@ -169,21 +142,17 @@ textarea {
   margin-left: 10px;
 }
 
-
 .checkbox {
   margin-top: -10px;
   margin-bottom: 10px;
   span {
     margin-left: 25px;
-    //font-weight: normal;
-    align: bottom;
   }
 }
 
 #user_session_remember_me {
   width: auto;
   margin-left: 0;
-  //align: top
 }
 
 //разное
@@ -193,7 +162,3 @@ textarea {
   width: 100%;
   margin-top: 45px;
 }
-
-//@media screen and (max-width: 768px) {
-//  body { padding-top: 0px; }
-//}

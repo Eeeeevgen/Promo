@@ -1,6 +1,6 @@
 require 'pp'
 
-class Api::V1::BaseController < ApplicationController
+class Api::V1::BaseController < ApplicationController # ActionController::API #ApplicationController
   include Pundit
 
   protect_from_forgery with: :null_session
@@ -28,8 +28,8 @@ class Api::V1::BaseController < ApplicationController
 
   private
 
-  def authenticate
-    authenticate_with_http_token do |token, options|
+  def authenticate # request['authorization'] = "Token token=#{token}"
+    authenticate_with_http_token do |token, _options|
       @user = User.find_by(token: token)
     end
   end
