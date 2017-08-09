@@ -17,5 +17,10 @@ module Promo
 
     # Add interactions paths
     config.autoload_paths += Dir.glob("#{config.root}/app/interactions/*")
+
+    config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
+
+    config.time_zone = "Moscow"
+    config.active_record.default_timezone = :local
   end
 end

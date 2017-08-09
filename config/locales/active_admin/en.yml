@@ -1,6 +1,23 @@
 en:
   active_admin:
-    dashboard: Dashboard
+    time_until_destroyed: "Time Until Destroyed"
+
+    language: "Language"
+    english: "English"
+    russian: "Russian"
+
+    accept: "Accept"
+    decline: "Decline"
+
+    leaderboard:
+      name: 'Leaderboard'
+      likes: 'Likes'
+      image: 'Image'
+      id: 'Id'
+      rank: 'Rank'
+      user: 'User'
+
+    dashboard: "Dashboard"
     dashboard_welcome:
       welcome: "Welcome to Active Admin. This is the default dashboard page."
       call_to_action: "To add dashboard sections, checkout 'app/admin/dashboard.rb'"

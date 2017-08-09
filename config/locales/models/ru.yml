@@ -1,0 +1,54 @@
+ru:
+  activerecord:
+    scopes:
+      image:
+        uploaded: "Загруженные"
+        accepted: "Принятые"
+        declined: "Отклоненные"
+    models:
+      image:
+        one: "Изображение"
+        other: "Изображения"
+      user:
+        one: 'Пользователь'
+        other: 'Пользователи'
+      admin_user:
+        one: "Администратор"
+        other: "Администраторы"
+      comment:
+        one: 'Комментарий'
+        other: 'Комментарии'
+    attributes:
+      image:
+        image: 'Изображение'
+        likes_count: 'Количество лайков'
+        created_at: 'Создано'
+        updated_at: 'Обновлено'
+        aasm_state: 'Состояние'
+        aasm_state/uploaded: 'Загружено'
+        aasm_state/accepted: 'Принято'
+        aasm_state/declined: 'Отклонено'
+      user:
+        name: "Имя"
+        email: "Email"
+        created_at: 'Создан'
+        updated_at: 'Обновлен'
+        avatar: 'Аватар'
+        token: 'API Токен'
+        crypted_password: 'Шифрованный пароль'
+        password_salt: 'Соль'
+        persistence_token: 'Токен сессии'
+        remote_avatar_url: 'URL загрузки аватара'
+      admin_user:
+        email: "Email"
+        current_sign_in_at: "Создание последней сессии"
+        sign_in_count: "Количество Входов"
+        created_at: 'Создан'
+        updated_at: 'Обновлен'
+      comment:
+        text: 'Текст'
+        image: 'Изображение'
+        user: 'Пользователь'
+        parent: 'Родитель'
+        created_at: 'Создан'
+        updated_at: 'Обновлен'

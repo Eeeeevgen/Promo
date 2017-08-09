@@ -2,7 +2,7 @@
 require 'leaderboard'
 
 uri = URI.parse(ENV['REDIS_URL'] || 'redis://localhost:6379/')
-redis = Redis.new(host: uri.host, port: uri.port, password: uri.password)
+REDIS = Redis.new(host: uri.host, port: uri.port, password: uri.password)
 
 # LB = CompetitionRankingLeaderboard.new('likes',
 #                                        Leaderboard::DEFAULT_OPTIONS.merge(page_size: 6),
@@ -10,7 +10,7 @@ redis = Redis.new(host: uri.host, port: uri.port, password: uri.password)
 
 LB = Leaderboard.new('likes',
                      Leaderboard::DEFAULT_OPTIONS.merge(page_size: 6),
-                     redis_connection: redis)
+                     redis_connection: REDIS)
 
 LB.remove_members_in_score_range(0, 999999)
 

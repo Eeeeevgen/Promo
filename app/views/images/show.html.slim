@@ -2,7 +2,7 @@
 
 .row-centered
   .thumbnail-show
-    = image_tag @image.image.url style: 'width: 100%;'
+    = image_tag @image.image.url
     .caption
       .caption-content.left
         = link_to(@image.user.name, user_path(@image.user))

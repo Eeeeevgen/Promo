@@ -6,7 +6,7 @@ module Images
            default: nil
 
     def execute
-      image = current_user.images.find(id)
+      image = current_user.images.find_by(id: id)
       return unless image
 
       LeaderboardI::Delete.run(image_id: image.id)

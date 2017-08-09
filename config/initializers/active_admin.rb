@@ -122,7 +122,7 @@ ActiveAdmin.setup do |config|
   config.comments = false
   #
   # You can change the name under which comments are registered:
-  # config.comments_registration_name = 'AdminComment'
+  config.comments_registration_name = 'AdminComment'
   #
   # You can change the order for the comments and you can change the column
   # to be used for ordering:
@@ -256,7 +256,7 @@ ActiveAdmin.setup do |config|
   # Pagination is enabled by default for all resources.
   # You can control the default per page count for all resources here.
   #
-  # config.default_per_page = 30
+  config.default_per_page = 10
   #
   # You can control the max per page count too.
   #
@@ -290,4 +290,22 @@ ActiveAdmin.setup do |config|
   # You can inherit it with own class and inject it for all resources
   #
   # config.order_clause = MyOrderClause
+
+  config.before_action :set_admin_locale
+
+
+  config.namespace :admin do |admin|
+    admin.build_menu :utility_navigation do |menu|
+      menu.add label: proc { I18n.t('active_admin.language') }, id: 'menu', priority: 1 do |lang|
+        lang.add label: proc { I18n.t('active_admin.english') }, url: proc { url_for(:locale => 'en') }, id: 'i18n-en', priority: 1
+        lang.add label: proc { I18n.t('active_admin.russian') }, url: proc { url_for(:locale => 'ru') }, id: 'i18n-ru', priority: 2
+      end
+      menu.add label: proc { display_name current_active_admin_user },
+               url: '#',
+               id: 'current_user',
+               priority: 2,
+               if: proc { current_active_admin_user? }
+      admin.add_logout_button_to_menu menu
+    end
+  end
 end

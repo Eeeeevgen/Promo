@@ -1,3 +1,149 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* общие */
+body {
+  padding-top: 50px !important;
+}
+
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.center {
+  text-align: center;
+  h1 {
+    margin-bottom: 10px;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+}
+
+h1 {
+  font-size: 4em;
+  letter-spacing: -2px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  text-align: center;
+  color: #dcf1a8;
+  text-shadow: darkgreen 1px 1px 3px,
+  darkgreen -1px -1px 3px,
+  darkgreen -1px 1px 3px,
+  darkgreen 1px -1px 3px;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 10px;
+  text-align: left;
+  font-weight: bold;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+}
+
+a {
+  color: darkgreen;
+
+  &:hover {
+    color: darkgreen;
+  }
+}
+
+.dropdown-menu {
+  width: 100%;
+  text-align: right;
+}
+
+.navbar {
+  margin-bottom: 0 !important;
+}
+
+/* footer */
+footer {
+  padding-top: 5px;
+  border-top: 1px solid lightgray;
+  color: LightGray;
+  a {
+    color: gray;
+    &:hover {
+      color: DarkGray;
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    padding: 5px !important;
+    margin-top: 5px;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+
+    li:nth-child(1) {
+      margin-left: 0;
+    }
+  }
+}
+
+/* формы */
+input, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+textarea {
+  min-height: 100px;
+  background: white !important;
+}
+
+#error_explanation {
+  color: crimson;
+  ul {
+    color: crimson;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  span {
+    margin-left: 25px;
+  }
+}
+
+#user_session_remember_me {
+  width: auto;
+  margin-left: 0;
+}
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+}
+
 .row-centered {
   text-align: center;
 }
@@ -31,12 +177,19 @@ hr {
   border: 1px solid #ddd;
   border-radius: 4px;
 
-  img {
+  > img {
     margin: 0;
     max-width: none;
+    width: 100%;
+    border: 1px lightgrey solid;
+    border-radius: 3px;
   }
 }
 
+
+.caption {
+  position: relative;
+}
 // show page
 .caption-content {
   display: inline-block;
@@ -67,6 +220,13 @@ hr {
   font-weight: bold;
   font-size: 16px;
   line-height: 30px;
+
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 60px;
 }
 
 
@@ -114,6 +274,7 @@ hr {
     width: 30px;
     height: 30px;
     vertical-align: top;
+    text-align: right;
     font-weight: bold;
     font-size: 16px;
     line-height: 30px;
@@ -145,13 +306,12 @@ hr {
 
 .upload {
   width: 350px;
-  margin: 0 auto;
+  margin: 10px auto;
 }
 
 #btn-comment {
   width: 200px;
-  margin: 0;
-  margin-left: 10px;
+  margin: 0 0 0 10px;
 }
 
 textarea#comment_input {
@@ -166,13 +326,13 @@ textarea#comment_input {
   margin-left: 50px;
 }
 
-#reply {
-  width: 50px;
-}
+//#reply {
+//  width: 50px;
+//}
 
-.media a {
-  color: black;
-}
+//.media a {
+//  color: black;
+//}
 
 .profile_header {
   font-size: 1.2em;
@@ -192,4 +352,11 @@ textarea#comment_input {
   margin-top: 25px;
   line-height: 2;
   color: ForestGreen;
+}
+
+.reply_link {
+  color:green;
+  font-style: italic;
+  font-size: 0.8em;
+  cursor: alias
 }

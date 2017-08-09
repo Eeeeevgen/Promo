@@ -1,5 +1,22 @@
 ru:
   active_admin:
+    time_until_destroyed: "Время до удаления"
+
+    language: "Язык"
+    english: "Английский"
+    russian: "Русский"
+
+    accept: "Принять"
+    decline: "Отклонить"
+
+    leaderboard:
+      name: 'Лидеры'
+      likes: 'Количество лайков'
+      image: 'Изображение'
+      id: 'Id'
+      rank: 'Место'
+      user: 'Пользователь'
+
     dashboard: "Панель управления"
     dashboard_welcome:
       welcome: "Добро пожаловать в Active Admin. Это стандартная страница управления сайтом."
@@ -31,6 +48,10 @@ ru:
         ends_with: "Заканчивается"
         greater_than: "больше"
         less_than: "меньше"
+        from: "От"
+        to: "До"
+        min: "От"
+        max: "До"
     search_status:
       headline: "Статус поиска:"
       current_scope: "Область:"

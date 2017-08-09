@@ -1,13 +1,27 @@
-table.ratings
+table.index_table.ratings
   tr
-    th Member
-    th Score
-    th Rank
-  - rating.each do |row|
+    th
+      = t('active_admin.leaderboard.rank')
+    th
+      = t('active_admin.leaderboard.image')
+    th
+      = t('active_admin.leaderboard.id')
+    th
+      = t('active_admin.leaderboard.user')
+    th
+      = t('active_admin.leaderboard.likes')
+
+  - images.each do |image|
     tr
       td
-        = row[:member]
+        = LB.rank_for(image.id)
       td
-        = row[:score]
+        = link_to (image_tag image.image.thumb.url), admin_image_path(image)
       td
-        = row[:rank]
+        = image.id
+      td
+        = username(image.user_id)
+      td
+        = image.likes_count
+= paginate images
+
