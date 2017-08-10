@@ -11,6 +11,7 @@ ru:
     actions: "Действия"
 
     user_name: 'Имя пользователя'
+    image_id: 'ID изображения'
 
     leaderboard:
       name: 'Лидеры'

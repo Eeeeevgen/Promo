@@ -11,7 +11,7 @@ ActiveAdmin.register Comment do #, as: "UserComment"
   # end
 
   # config.filters = false
-  filter :image_id, label: "Image ID"
+  filter :image_id, label: proc { I18n.t('active_admin.image_id') }
   filter :user
 
   index do

@@ -11,6 +11,7 @@ en:
     actions: "Actions"
 
     user_name: 'User Name'
+    image_id: 'Image ID'
 
     leaderboard:
       name: 'Leaderboard'
