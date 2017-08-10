@@ -8,6 +8,9 @@ en:
 
     accept: "Accept"
     decline: "Decline"
+    actions: "Actions"
+
+    user_name: 'User Name'
 
     leaderboard:
       name: 'Leaderboard'

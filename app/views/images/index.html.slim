@@ -4,6 +4,7 @@ h1 Top-ranked images
 .row
   .col-xs-8.col-sm-6.col-sm-offset-3.row-centered
     = paginate @images
+  /- unless @images.empty?
   .col-xs-4.col-sm-3.row-centered
     = form_tag '/', id: "per_page_form"
     span#per_page_span

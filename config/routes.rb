@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   resources :users, only: [:new, :create, :show, :edit]
   resources :user_sessions, only: [:create, :destroy]
-  resources :images, only: [:show]
+  resources :images, only: [:show, :index]
 
   root 'images#index'
   post '/' => 'images#index'

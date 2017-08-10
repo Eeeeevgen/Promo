@@ -360,3 +360,13 @@ textarea#comment_input {
   font-size: 0.8em;
   cursor: alias
 }
+
+li.media.panel {
+  padding: 5px;
+}
+
+.media-body {
+  p {
+    margin-left: 10px;
+  }
+}

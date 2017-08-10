@@ -7,7 +7,7 @@ module Comments
 
     def execute
       if parent_id.present?
-        parent = Comment.find_by_id(parent_id)
+        parent = Comment.find_by(id: parent_id)
         comment = parent.children.build(inputs)
       else
         comment = Comment.new(inputs)

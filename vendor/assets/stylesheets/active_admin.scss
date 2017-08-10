@@ -41,3 +41,7 @@ a.light-button {
 a.dark-button {
   @include dark-button;
 }
+
+.pre-wrap {
+  white-space: pre-wrap;
+}

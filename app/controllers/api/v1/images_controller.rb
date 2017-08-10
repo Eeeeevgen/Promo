@@ -1,12 +1,16 @@
 class Api::V1::ImagesController < Api::V1::BaseController
   def index
-    images = Image.all.order(likes_count: :desc)
+    images = Image.ordered_by_rating
     render json: images
   end
 
   def show
-    image = Image.find(params[:id])
-    render json: image
+    image = Image.find_by(id: params[:id])
+    if image.accepted? || (current_user && current_user.id == image.user_id)
+      render json: image
+    else
+      render json: nil
+    end
   end
 
   def create

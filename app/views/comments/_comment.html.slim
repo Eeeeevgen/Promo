@@ -17,7 +17,7 @@
 
 li.media.panel.panel-default
   .media-left
-    = link_to image_tag(avatar_thumb_url(comment.user_id), class: 'media-object img-thumbnail', style: 'width: 64px; height: 64px;'), user_path(comment.user_id)
+    = link_to image_tag(avatar_thumb_url(comment.user_id), class: 'media-object', style: 'width: 64px; height: 64px;'), user_path(comment.user_id)
   .media-body
     h4.media-heading
       = link_to username(comment.user_id), user_path(comment.user_id)
@@ -25,5 +25,21 @@ li.media.panel.panel-default
       =<> l(comment.created_at, format: '%d %B %Y %H:%M:%S')
       a.reply_link onclick="set_parent_id('#{comment.id}', '#{username(comment.user_id)}');"
         | reply
-    p
+    hr
+    p style='white-space: pre-wrap;'
       = comment.text
+
+/li.media
+/  .media-left
+/    = link_to image_tag(avatar_thumb_url(comment.user_id), class: 'media-object img-thumbnail', style: 'width: 64px; height: 64px;'), user_path(comment.user_id)
+/  .media-body
+/    .panel.panel-default
+/      .panel-heading
+/        = link_to username(comment.user_id), user_path(comment.user_id)
+/        | ,
+/        =<> l(comment.created_at, format: '%d %B %Y %H:%M:%S')
+/        a.reply_link onclick="set_parent_id('#{comment.id}', '#{username(comment.user_id)}');"
+/          | reply
+/      .panel-body
+/        p
+/        = comment.text

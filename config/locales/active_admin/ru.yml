@@ -8,6 +8,9 @@ ru:
 
     accept: "Принять"
     decline: "Отклонить"
+    actions: "Действия"
+
+    user_name: 'Имя пользователя'
 
     leaderboard:
       name: 'Лидеры'

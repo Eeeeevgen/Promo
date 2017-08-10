@@ -15,6 +15,8 @@
       .caption-content.right
         = "Place: #{current_rating(@image)}"
 
+a name='reply'
+
 - if current_user
   .row.row-centered style='margin-top: 20px;'
     = form_for @comment, url: '/addcomment', html: {class: 'form-inline', style: 'margin-bottom: 5px;'} do |f|
@@ -29,11 +31,3 @@
 
 ul.media-list
   = comments_tree_for @comments
-
-javascript:
-  function set_parent_id(pid, name) {
-    document.getElementById('parent_id').value = pid;
-    document.getElementById('parent_info').innerHTML = 'Reply to: ' + name;
-    document.getElementById('parent_info').style.visibility = 'visible';
-    document.getElementById('comment_input').focus();
-  }

@@ -1,5 +1,5 @@
 ActiveAdmin.register Image do
-  actions :index, :show
+  actions :index, :show, :edit
 
   menu priority: 1
 
@@ -81,7 +81,7 @@ ActiveAdmin.register Image do
   show do
     attributes_table do
       row :id
-      row User.human_attribute_name(:name) do
+      row I18n.t("active_admin.user_name") do
         image.user.name
       end
       row :created_at
@@ -96,7 +96,11 @@ ActiveAdmin.register Image do
           Workers::GetDestroyTime.run!(image_id: image.id)
         end
       end
-      row :admin do |image|
+      row :likes_count
+      row I18n.t('active_admin.leaderboard.rank'), :rank do |image|
+        LB.rank_for(image.id)
+      end
+      row I18n.t("active_admin.actions"), :admin do |image|
         unless image.accepted?
           span do
             link_to t('active_admin.accept'), accept_admin_image_path(image), class: 'custom-button light-button'
@@ -111,6 +115,14 @@ ActiveAdmin.register Image do
           link_to t('active_admin.delete'), admin_image_path(image), method: :delete, 'data-confirm' => 'Are you sure?', class: 'custom-button dark-button'
         end
       end
+
+      # row :form do |image|
+      #   form do |f|
+      #     # f.semantic_errors # shows errors on :base
+      #     f.inputs          # builds an input field for every attribute
+      #     f.actions         # adds the 'Submit' and 'Cancel' buttons
+      #   end
+      # end
     end
   end
 
@@ -123,7 +135,5 @@ ActiveAdmin.register Image do
       end
       redirect_to admin_images_path
     end
-
-
   end
 end
