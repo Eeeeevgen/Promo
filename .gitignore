@@ -23,4 +23,9 @@
 .byebug_history
 
 public/uploads/*
+
+config/application.yml
+config/secrets.yml
+config/database.yml
+
 .idea/*
