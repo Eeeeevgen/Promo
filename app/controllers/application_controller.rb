@@ -57,4 +57,16 @@ class ApplicationController < ActionController::Base
     flash[:danger] = 'Authorization error'
     redirect_to request.referrer || root_path
   end
+
+  def set_admin_locale
+    I18n.locale = params[:locale] || current_admin_user &. locale ||I18n.default_locale
+  end
+
+  def default_url_options(options={})
+    if controller_path.split('/').first == 'admin'
+      { :locale => I18n.locale }
+    else
+      {}
+    end
+  end
 end

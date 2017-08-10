@@ -1,16 +1,23 @@
+require 'sidekiq/web'
+
+
 Rails.application.routes.draw do
+  mount Sidekiq::Web => '/sidekiq'
+
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
   resources :users, only: [:new, :create, :show, :edit]
   resources :user_sessions, only: [:create, :destroy]
-  resources :images, only: [:show]
+  resources :images, only: [:show, :index]
 
-  root 'main#index'
+  root 'images#index'
+  post '/' => 'images#index'
 
-  get '/login', to: 'sessions#new', as: :login
+  get '/login' => 'sessions#new', as: :login
   post '/login' => 'sessions#create', as: :login_post
 
-  delete '/logout', :to => 'sessions#destroy', as: :logout
+  delete '/logout' => 'sessions#destroy', as: :logout
 
   get '/register' => 'users#new', as: :register
   post '/register' => 'users#create', as: :register_post
@@ -35,6 +42,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:index, :create, :show, :destroy]
       resources :images, only: [:index, :create, :show, :destroy]
+      post 'token' => 'users#token'
+      delete 'token' => 'users#token_destroy'
     end
   end
 end

@@ -7,6 +7,7 @@ class AvatarUploader < BaseUploader
   end
 
   def default_url(*args)
-    'default_avatar.png'
+    # 'default_avatar.png'
+    "/default_avatar.png"
   end
 end

@@ -1,0 +1,54 @@
+en:
+  activerecord:
+    scopes:
+      image:
+        uploaded: "Uploaded"
+        accepted: "Accepted"
+        declined: "Declined"
+    models:
+      image:
+        one: "Image"
+        other: 'Images'
+      user:
+        one: 'User'
+        other: 'Users'
+      admin_user:
+        one: 'Admin User'
+        other: 'Admin Users'
+      comment:
+        one: 'Comment'
+        other: 'Comments'
+    attributes:
+      image:
+        image: 'Image'
+        likes_count: 'Likes count'
+        created_at: 'Created at'
+        updated_at: 'Updated at'
+        aasm_state: 'State'
+        aasm_state/uploaded: 'Uploaded'
+        aasm_state/accepted: 'Accepted'
+        aasm_state/declined: 'Declined'
+      user:
+        name: "Name"
+        email: "Email"
+        created_at: 'Created at'
+        updated_at: 'Updated at'
+        avatar: 'Avatar'
+        token: 'API Token'
+        crypted_password: 'Crypted Password'
+        password_salt: 'Password Salt'
+        persistence_token: 'Persistence Token'
+        remote_avatar_url: 'Remote avatar URL'
+      admin_user:
+        email: "Email"
+        current_sign_in_at: "Current Signed In At"
+        sign_in_count: "Sign In Count"
+        created_at: 'Created at'
+        updated_at: 'Updated at'
+      comments:
+        text: 'Text'
+        image: 'Image'
+        user: 'User'
+        parent: 'Parent'
+        created_at: 'Created At'
+        updated_at: 'Updated At'

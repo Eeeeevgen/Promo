@@ -1,0 +1,17 @@
+default: &default
+  adapter:
+  encoding:
+  pool:
+  timeout:
+
+development:
+  <<: *default
+  database:
+
+test:
+  <<: *default
+  database:
+
+production:
+  <<: *default
+  database:

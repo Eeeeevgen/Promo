@@ -13,6 +13,8 @@ class Image < ApplicationRecord
   scope :uploaded, -> { where(aasm_state: :uploaded) }
   scope :declined, -> { where(aasm_state: :declined) }
 
+  scope :ordered_by_rating, -> { accepted.sort_by { |image| LB.rank_for(image.id) } }
+
   aasm whiny_transitions: false do
     state :uploaded, initial: true
     state :accepted

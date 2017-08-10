@@ -19,6 +19,6 @@ class Api::V1::ImagePolicy
   end
 
   def destroy?
-    @user && (@user.admin? || @user.id == @record.user.id)
+    @user && @user.id == @record.user.id
   end
 end
