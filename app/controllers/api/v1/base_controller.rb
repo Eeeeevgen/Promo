@@ -1,5 +1,3 @@
-require 'pp'
-
 class Api::V1::BaseController < ApplicationController # ActionController::API #ApplicationController
   include Pundit
 

@@ -33,7 +33,7 @@ ActiveAdmin.register Image do
     image = Image.find(params[:id])
     image.decline!
     LeaderboardI::Delete.run(image_id: image.id)
-    DelayedDeleteWorker.perform_in(DELAYED_DESTROY_TIME, params[:id])
+    DelayedDeleteWorker.perform_in(Sidekiq::DELAYED_DESTROY_TIME, params[:id])
 
     redirect_back(fallback_location: admin_images_path)
   end
@@ -42,7 +42,6 @@ ActiveAdmin.register Image do
   filter :created_at
   filter :updated_at
   filter :likes_count,  as: :range_select
-  # filter :comments_id_not_null, label: "With comments", as: :boolean
 
   index do
     selectable_column
@@ -58,23 +57,15 @@ ActiveAdmin.register Image do
                                         Image.human_attribute_name('aasm_state/accepted') => :accepted,
                                         Image.human_attribute_name('aasm_state/declined') => :declined }
     column :created_at
-    actions defaults: false do |image|
-      div do
-        link_to t('active_admin.view'), admin_image_path(image), class: 'custom-button light-button'
-      end
+    actions defaults: false, dropdown: true do |image|
+      item t('active_admin.view'), admin_image_path(image)
       unless image.accepted?
-        div do
-          link_to t('active_admin.accept'), accept_admin_image_path(image), class: 'custom-button light-button'
-        end
+        item t('active_admin.accept'), accept_admin_image_path(image)
       end
       unless image.declined?
-        div do
-          link_to t('active_admin.decline'), decline_admin_image_path(image), class: 'custom-button light-button'
-        end
+        item t('active_admin.decline'), decline_admin_image_path(image)
       end
-      div do
-        link_to t('active_admin.delete'), admin_image_path(image), class: 'custom-button dark-button', method: :delete, 'data-confirm' => 'Are you sure?'
-      end
+        item t('active_admin.delete'), admin_image_path(image), method: :delete, 'data-confirm' => 'Are you sure?'
     end
   end
 
@@ -115,14 +106,6 @@ ActiveAdmin.register Image do
           link_to t('active_admin.delete'), admin_image_path(image), method: :delete, 'data-confirm' => 'Are you sure?', class: 'custom-button dark-button'
         end
       end
-
-      # row :form do |image|
-      #   form do |f|
-      #     # f.semantic_errors # shows errors on :base
-      #     f.inputs          # builds an input field for every attribute
-      #     f.actions         # adds the 'Submit' and 'Cancel' buttons
-      #   end
-      # end
     end
   end
 

@@ -2,14 +2,9 @@ class ImagesController < ApplicationController
   def new; end
 
   def index
-    # @images = Image.where(aasm_state: :accepted).order(likes_count: :desc).page(params[:page]).per(@per_page)
-    if request.get?
-      @per_page = params[:per] || 8 #cookies[:per_page]
-      @images = Image.ordered_by_rating
-      @images = Kaminari.paginate_array(@images).page(params[:page]).per(@per_page)
-    elsif request.post?
-      redirect_to root_path(per: params[:per])
-    end
+    @per_page = params[:per] || 8
+    @images = Image.includes(:user).ordered_by_rating
+    @images = Kaminari.paginate_array(@images).page(params[:page]).per(@per_page)
   end
 
   def show

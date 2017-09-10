@@ -12,7 +12,7 @@ module Workers
         end
       end
       if created_time
-        time_diff = DELAYED_DESTROY_TIME - (Time.now - created_time)
+        time_diff = Sidekiq::DELAYED_DESTROY_TIME - (Time.now - created_time)
         "#{human_time(time_diff)}"
       else
         nil

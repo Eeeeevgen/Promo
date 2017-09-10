@@ -6,7 +6,6 @@ AllCops:
     - bin/*
     - config/puma.rb
     - test/**/*
-    - config/initializers/active_admin.rb
 Documentation:
   Enabled: false
 FrozenStringLiteralComment:
@@ -14,4 +13,6 @@ FrozenStringLiteralComment:
 OrderedGems:
   Enabled: false
 LineLength:
+  Max: 120
+BlockLength:
   Enabled: false

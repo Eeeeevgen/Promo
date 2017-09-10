@@ -6,8 +6,7 @@ class AvatarUploader < BaseUploader
     process resize_to_fit: [64, 64]
   end
 
-  def default_url(*args)
-    # 'default_avatar.png'
-    "/default_avatar.png"
+  def default_url
+    '/default_avatar.png'
   end
 end

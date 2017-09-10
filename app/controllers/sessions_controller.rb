@@ -9,7 +9,6 @@ class SessionsController < ApplicationController
       outcome = Sessions::CreateOmniauth.run!(auth_hash: auth_hash,
                                               current_user: current_user)
     else
-      puts params
       outcome = Sessions::CreateCommon.run!(params[:user_session])
     end
 

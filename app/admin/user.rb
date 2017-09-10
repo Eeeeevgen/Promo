@@ -8,12 +8,20 @@ ActiveAdmin.register User do
     column :id
     column :name
     column :email
+    column :authorizations do |user|
+      ul do
+        user.authorizations.each do |auth|
+          li do
+            auth.provider
+          end
+        end
+      end
+    end
     column :created_at
     column :updated_at
     column :avatar do |user|
-      link_to user.avatar, user.avatar.url
+      image_tag user.avatar.url, size: 50
     end
-    column :token
     actions
   end
 

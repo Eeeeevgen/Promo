@@ -39,6 +39,7 @@ ru:
         password_salt: 'Соль'
         persistence_token: 'Токен сессии'
         remote_avatar_url: 'URL загрузки аватара'
+        authorizations: 'Методы авторизации'
       admin_user:
         email: "Email"
         current_sign_in_at: "Создание последней сессии"
@@ -52,3 +53,4 @@ ru:
         parent: 'Родитель'
         created_at: 'Создан'
         updated_at: 'Обновлен'
+        parent: 'Родительский комментарий'
