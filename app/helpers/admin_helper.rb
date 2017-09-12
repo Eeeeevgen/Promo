@@ -1,5 +1,7 @@
 module AdminHelper
   def human_time(seconds_diff)
+    return unless seconds_diff
+
     sign = seconds_diff.negative? ? '-' : ''
 
     seconds_diff = seconds_diff.to_i.abs
