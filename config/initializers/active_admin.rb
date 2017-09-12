@@ -317,7 +317,7 @@ end
 
 module ActiveAdmin
   class BaseController
-    around_action :skip_bullet
+    around_action :skip_bullet if Rails.env.development?
 
     def skip_bullet
       Bullet.enable = false
