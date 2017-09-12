@@ -30,11 +30,11 @@ class Image < ApplicationRecord
     state :declined
 
     event :accept do
-      transitions from: [:uploaded, :declined], to: :accepted
+      transitions from: %i[uploaded declined], to: :accepted
     end
 
     event :decline do
-      transitions from: [:uploaded, :accepted], to: :declined
+      transitions from: %i[uploaded accepted], to: :declined
     end
   end
 end

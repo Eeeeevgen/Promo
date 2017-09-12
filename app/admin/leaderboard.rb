@@ -3,7 +3,7 @@ ActiveAdmin.register_page I18n.t('active_admin.leaderboard.name') do
        priority: 2
 
   content title: proc { I18n.t('active_admin.leaderboard.name') } do
-    images = Kaminari.paginate_array(Image.ordered_by_rating).page(params[:page]).per(10)
+    images = Kaminari.paginate_array(Image.ordered_by_rating).page(params[:page]).per(20)
     render 'admin/rating', images: images
   end
 end

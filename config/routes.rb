@@ -1,54 +1,43 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  authenticate :admin_user, lambda { |u| u } do
-    mount Sidekiq::Web => '/admin/sidekiq_default'
+  authenticate :admin_user do
+    mount Sidekiq::Web, at: '/admin/sidekiq_default'
   end
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  resources :users, only: [:new, :create, :show, :edit]
-  resources :user_sessions, only: [:create, :destroy]
-  resources :images, only: [:show, :index]
+  resources :users, only: %i[new create show edit update]
+  resources :user_sessions, only: %i[create destroy]
+  resources :images, only: %i[show index destroy]
 
   root 'images#index'
-  post '/' => 'images#index'
 
-  get '/login' => 'sessions#new', as: :login
-  post '/login' => 'sessions#create', as: :login_post
+  get '/login', to: 'sessions#new', as: :login
+  post '/login', to: 'sessions#create', as: :login_post
+  delete '/logout', to: 'sessions#destroy', as: :logout
+  match '/auth/:provider/callback', to: 'sessions#create', via: :all
+  match '/auth/failure', to: 'sessions#failure', via: :all
 
-  delete '/logout' => 'sessions#destroy', as: :logout
+  get '/register', to: 'users#new', as: :register
+  post '/register', to: 'users#create', as: :register_post
+  post '/avatar', to: 'users#avatar'
 
-  get '/register' => 'users#new', as: :register
-  post '/register' => 'users#create', as: :register_post
+  get '/images/:id/like', to: 'images#like', as: :like
+  post '/addcomment', to: 'images#comment'
+  post '/uploadimage', to: 'images#upload'
 
-  get '/users/:id/edit' => 'users#edit'
-  patch '/users/:id/edit' => 'users#update'
-
-  match '/auth/:provider/callback' => 'sessions#create', via: :all
-  match '/auth/failure' => 'sessions#failure', via: :all
-
-  get '/images/:id' => 'images#show', as: :image_show
-  get '/images/:id/like' => 'images#like', as: :like
-  delete '/images/:id/' => 'images#delete'
-
-  post '/image' => 'users#show'
-  post '/avatar' => 'users#avatar'
-
-  post '/addcomment' => 'images#comment'
-  post '/uploadimage' => 'images#upload'
+  # for per_page selector
+  post '/', to: 'images#index'
+  post '/users/:id', to: 'users#show'
 
   namespace :api do
     namespace :v1 do
-      resources :users, only: [:index, :create, :show, :destroy]
-      resources :images, only: [:index, :create, :show, :destroy]
-      post 'token' => 'users#token'
-      delete 'token' => 'users#token_destroy'
+      resources :users, only: %i[index create show destroy]
+      resources :images, only: %i[index create show destroy]
+      post 'token', to: 'users#token'
+      delete 'token', to: 'users#token_destroy'
     end
   end
 end
-
-# Rails.application.routes.default_url_options = {
-#     host: 'localhost:3000'
-# }

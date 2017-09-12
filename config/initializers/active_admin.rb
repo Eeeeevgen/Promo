@@ -296,8 +296,14 @@ ActiveAdmin.setup do |config|
   config.namespace :admin do |admin|
     admin.build_menu :utility_navigation do |menu|
       menu.add label: proc { I18n.t('active_admin.language') }, id: 'menu', priority: 1 do |lang|
-        lang.add label: proc { I18n.t('active_admin.english') }, url: proc { url_for(locale: 'en') }, id: 'i18n-en', priority: 1
-        lang.add label: proc { I18n.t('active_admin.russian') }, url: proc { url_for(locale: 'ru') }, id: 'i18n-ru', priority: 2
+        lang.add label: proc { I18n.t('active_admin.english') },
+                 url: proc { url_for(locale: 'en') },
+                 id: 'i18n-en',
+                 priority: 1
+        lang.add label: proc { I18n.t('active_admin.russian') },
+                 url: proc { url_for(locale: 'ru') },
+                 id: 'i18n-ru',
+                 priority: 2
       end
       menu.add label: proc { display_name current_active_admin_user },
                url: '#',
@@ -305,6 +311,19 @@ ActiveAdmin.setup do |config|
                priority: 2,
                if: proc { current_active_admin_user? }
       admin.add_logout_button_to_menu menu
+    end
+  end
+end
+
+module ActiveAdmin
+  class BaseController
+    around_action :skip_bullet
+
+    def skip_bullet
+      Bullet.enable = false
+      yield
+    ensure
+      Bullet.enable = true
     end
   end
 end

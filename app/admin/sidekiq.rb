@@ -1,5 +1,5 @@
-ActiveAdmin.register_page "Sidekiq" do
+ActiveAdmin.register_page 'Sidekiq' do
   content do
-    render "admin/sidekiq"
+    render 'admin/sidekiq'
   end
 end

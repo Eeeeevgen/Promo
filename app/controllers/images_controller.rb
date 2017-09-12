@@ -30,11 +30,11 @@ class ImagesController < ApplicationController
   end
 
   def comment
-    Comments::Create.run(params.fetch(:comment, {}))
+    Comment.create(params.require(:comment).permit(:text, :parent_id, :image_id, :user_id))
     redirect_back(fallback_location: root_path)
   end
 
-  def delete
+  def destroy
     Images::Delete.run(id: params[:id].to_i, current_user: current_user)
     redirect_to user_path(current_user)
   end

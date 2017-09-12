@@ -9,7 +9,6 @@
 #  password_salt     :string
 #  persistence_token :string
 #  avatar            :string
-#  remote_avatar_url :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  token             :string
