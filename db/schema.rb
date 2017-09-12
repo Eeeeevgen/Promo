@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170808200730) do
+ActiveRecord::Schema.define(version: 20170910214337) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,7 +81,6 @@ ActiveRecord::Schema.define(version: 20170808200730) do
     t.string "password_salt"
     t.string "persistence_token"
     t.string "avatar"
-    t.string "remote_avatar_url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "token"

@@ -3,28 +3,17 @@ ActiveAdmin.register Image do
 
   menu priority: 1
 
-  scope proc{ I18n.t('activerecord.scopes.image.uploaded') }, :uploaded
-  scope proc{ I18n.t('activerecord.scopes.image.accepted') }, :accepted
-  scope proc{ I18n.t('activerecord.scopes.image.declined') }, :declined
+  scope proc { I18n.t('activerecord.scopes.image.uploaded') }, :uploaded
+  scope proc { I18n.t('activerecord.scopes.image.accepted') }, :accepted
+  scope proc { I18n.t('activerecord.scopes.image.declined') }, :declined
 
   config.sort_order = 'aasm_state_desc'
 
-  batch_action :destroy do |ids|
-    ids.each do |id|
-
-      LeaderboardI::Delete.run(image_id: id)
-      Image.find(id).destroy
-    end
-    redirect_back(fallback_location: admin_images_path)
-  end
-
   member_action :accept, method: :get do
     image = Image.find(params[:id])
-    if image.declined?
-      Workers::DestroyWorker.run(image_id: image.id)
-    end
+    Workers::DestroyWorker.run(image_id: image.id) if image.declined?
     image.accept!
-    LeaderboardI::NewImage.run(image_id: image.id, score: image.likes_count)
+    LB.rank_member(image.id, image.likes_count)
 
     redirect_back(fallback_location: admin_images_path)
   end
@@ -32,8 +21,8 @@ ActiveAdmin.register Image do
   member_action :decline, method: :get do
     image = Image.find(params[:id])
     image.decline!
-    LeaderboardI::Delete.run(image_id: image.id)
-    DelayedDeleteWorker.perform_in(DELAYED_DESTROY_TIME, params[:id])
+    LB.remove_member(image.id)
+    DelayedDeleteWorker.perform_in(Sidekiq::DELAYED_DESTROY_TIME, params[:id])
 
     redirect_back(fallback_location: admin_images_path)
   end
@@ -41,66 +30,53 @@ ActiveAdmin.register Image do
   filter :user, label: proc { User.model_name.human }
   filter :created_at
   filter :updated_at
-  filter :likes_count,  as: :range_select
-  # filter :comments_id_not_null, label: "With comments", as: :boolean
+  filter :likes_count, as: :range_select
 
   index do
     selectable_column
     column :id
     column :image do |image|
-      link_to (image_tag image.image.thumb.url), admin_image_path(image)
+      link_to (image_tag image.image.thumb.url), admin_image_path(image) unless image.image.blank?
     end
     column User.model_name.human do |image|
       User.find(image.user_id).name
     end
     column :likes_count
-    state_column :aasm_state, states: { Image.human_attribute_name('aasm_state/uploaded') => :uploaded,
-                                        Image.human_attribute_name('aasm_state/accepted') => :accepted,
-                                        Image.human_attribute_name('aasm_state/declined') => :declined }
+    state_column :aasm_state
     column :created_at
-    actions defaults: false do |image|
-      div do
-        link_to t('active_admin.view'), admin_image_path(image), class: 'custom-button light-button'
-      end
+    actions defaults: false, dropdown: true do |image|
+      item t('active_admin.view'), admin_image_path(image)
       unless image.accepted?
-        div do
-          link_to t('active_admin.accept'), accept_admin_image_path(image), class: 'custom-button light-button'
-        end
+        item t('active_admin.accept'), accept_admin_image_path(image)
       end
       unless image.declined?
-        div do
-          link_to t('active_admin.decline'), decline_admin_image_path(image), class: 'custom-button light-button'
-        end
+        item t('active_admin.decline'), decline_admin_image_path(image)
       end
-      div do
-        link_to t('active_admin.delete'), admin_image_path(image), class: 'custom-button dark-button', method: :delete, 'data-confirm' => 'Are you sure?'
-      end
+      item t('active_admin.delete'), admin_image_path(image), method: :delete, 'data-confirm' => 'Are you sure?'
     end
   end
 
   show do
     attributes_table do
       row :id
-      row I18n.t("active_admin.user_name") do
+      row I18n.t('active_admin.user_name') do
         image.user.name
       end
       row :created_at
       row :image do |image|
-        image_tag image.image.url
+        image_tag image.image.url unless image.image.blank?
       end
       state_row :aasm_state, states: { Image.human_attribute_name('aasm_state/uploaded') => :uploaded,
                                        Image.human_attribute_name('aasm_state/accepted') => :accepted,
                                        Image.human_attribute_name('aasm_state/declined') => :declined }
       row I18n.t('active_admin.time_until_destroyed') do |image|
-        if image.declined?
-          Workers::GetDestroyTime.run!(image_id: image.id)
-        end
+        human_time(Workers::GetDestroyTime.run!(image_id: image.id)) if image.declined?
       end
       row :likes_count
       row I18n.t('active_admin.leaderboard.rank'), :rank do |image|
         LB.rank_for(image.id)
       end
-      row I18n.t("active_admin.actions"), :admin do |image|
+      row I18n.t('active_admin.actions'), :admin do |image|
         unless image.accepted?
           span do
             link_to t('active_admin.accept'), accept_admin_image_path(image), class: 'custom-button light-button'
@@ -112,17 +88,12 @@ ActiveAdmin.register Image do
           end
         end
         span do
-          link_to t('active_admin.delete'), admin_image_path(image), method: :delete, 'data-confirm' => 'Are you sure?', class: 'custom-button dark-button'
+          link_to t('active_admin.delete'), admin_image_path(image),
+                  method: :delete,
+                  'data-confirm' => 'Are you sure?',
+                  class: 'custom-button dark-button'
         end
       end
-
-      # row :form do |image|
-      #   form do |f|
-      #     # f.semantic_errors # shows errors on :base
-      #     f.inputs          # builds an input field for every attribute
-      #     f.actions         # adds the 'Submit' and 'Cancel' buttons
-      #   end
-      # end
     end
   end
 
@@ -130,7 +101,7 @@ ActiveAdmin.register Image do
     def destroy
       image = Image.find(params[:id])
       if image
-        LeaderboardI::Delete.run(image_id: image.id)
+        LB.remove_member(image.id)
         image.destroy
       end
       redirect_to admin_images_path

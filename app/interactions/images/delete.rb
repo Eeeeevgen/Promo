@@ -9,7 +9,7 @@ module Images
       image = current_user.images.find_by(id: id)
       return unless image
 
-      LeaderboardI::Delete.run(image_id: image.id)
+      LB.remove_member(image.id)
       image.destroy
     end
   end

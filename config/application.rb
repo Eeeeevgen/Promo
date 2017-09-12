@@ -20,7 +20,7 @@ module Promo
 
     config.i18n.load_path += Dir[Rails.root.join('config', 'locales', '**', '*.{rb,yml}')]
 
-    config.time_zone = "Moscow"
+    config.time_zone = 'Moscow'
     config.active_record.default_timezone = :local
   end
 end

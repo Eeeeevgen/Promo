@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: images
+#
+#  id          :integer          not null, primary key
+#  user_id     :integer
+#  image       :string
+#  likes_count :integer          default(0)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  aasm_state  :string           default("uploaded")
+#
+
 class Image < ApplicationRecord
   include AASM
 
@@ -9,10 +22,6 @@ class Image < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :comments, dependent: :destroy
 
-  scope :accepted, -> { where(aasm_state: :accepted) }
-  scope :uploaded, -> { where(aasm_state: :uploaded) }
-  scope :declined, -> { where(aasm_state: :declined) }
-
   scope :ordered_by_rating, -> { accepted.sort_by { |image| LB.rank_for(image.id) } }
 
   aasm whiny_transitions: false do
@@ -21,11 +30,11 @@ class Image < ApplicationRecord
     state :declined
 
     event :accept do
-      transitions from: [:uploaded, :declined], to: :accepted
+      transitions from: %i[uploaded declined], to: :accepted
     end
 
     event :decline do
-      transitions from: [:uploaded, :accepted], to: :declined
+      transitions from: %i[uploaded accepted], to: :declined
     end
   end
 end

@@ -2,14 +2,9 @@ class ImagesController < ApplicationController
   def new; end
 
   def index
-    # @images = Image.where(aasm_state: :accepted).order(likes_count: :desc).page(params[:page]).per(@per_page)
-    if request.get?
-      @per_page = params[:per] || 8 #cookies[:per_page]
-      @images = Image.ordered_by_rating
-      @images = Kaminari.paginate_array(@images).page(params[:page]).per(@per_page)
-    elsif request.post?
-      redirect_to root_path(per: params[:per])
-    end
+    @per_page = params[:per] || 8
+    @images = Image.includes(:user).ordered_by_rating
+    @images = Kaminari.paginate_array(@images).page(params[:page]).per(@per_page)
   end
 
   def show
@@ -25,23 +20,21 @@ class ImagesController < ApplicationController
   end
 
   def upload
-    if params[:images]
-      params[:images].each do |image|
-        i = current_user.images.new
-        i.image = image
-        i.save
-      end
+    params[:images].try(:each) do |image|
+      i = current_user.images.new
+      i.image = image
+      i.save
     end
     params[:id] = current_user.id
     redirect_to user_path(current_user.id)
   end
 
   def comment
-    Comments::Create.run(params.fetch(:comment, {}))
+    Comment.create(params.require(:comment).permit(:text, :parent_id, :image_id, :user_id))
     redirect_back(fallback_location: root_path)
   end
 
-  def delete
+  def destroy
     Images::Delete.run(id: params[:id].to_i, current_user: current_user)
     redirect_to user_path(current_user)
   end

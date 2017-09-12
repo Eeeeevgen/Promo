@@ -39,6 +39,7 @@ en:
         password_salt: 'Password Salt'
         persistence_token: 'Persistence Token'
         remote_avatar_url: 'Remote avatar URL'
+        authorizations: 'Authorizations'
       admin_user:
         email: "Email"
         current_sign_in_at: "Current Signed In At"
@@ -52,3 +53,4 @@ en:
         parent: 'Parent'
         created_at: 'Created At'
         updated_at: 'Updated At'
+        parent: 'Parent Comment'

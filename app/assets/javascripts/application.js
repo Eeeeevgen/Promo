@@ -19,11 +19,6 @@ function set_parent_id(pid, name) {
     document.getElementById('parent_info').innerHTML = 'Reply to: ' + name;
     document.getElementById('parent_info').style.visibility = 'visible';
 
-    scrollTo('reply');
-
+    document.getElementById('comment_input').scrollTop;
     document.getElementById('comment_input').focus();
-}
-
-function scrollTo(hash) {
-    location.hash = "#" + hash;
 }

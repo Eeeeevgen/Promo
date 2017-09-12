@@ -15,8 +15,6 @@
       .caption-content.right
         = "Place: #{current_rating(@image)}"
 
-a name='reply'
-
 - if current_user
   .row.row-centered style='margin-top: 20px;'
     = form_for @comment, url: '/addcomment', html: {class: 'form-inline', style: 'margin-bottom: 5px;'} do |f|

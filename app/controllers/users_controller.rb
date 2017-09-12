@@ -17,8 +17,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    @per_page = params[:per] || 8
     @user = User.find(params[:id])
-    @images = @user.images.page(params[:page]).per(6)
+    @images = @user.images.page(params[:page]).per(@per_page)
   end
 
   def edit
