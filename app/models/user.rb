@@ -25,11 +25,8 @@ class User < ApplicationRecord
 
   has_many :authorizations, dependent: :destroy
   has_many :images, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :name, :email, presence: true
   mount_uploader :avatar, AvatarUploader
-
-  # def admin?
-  #   self.admin
-  # end
 end
