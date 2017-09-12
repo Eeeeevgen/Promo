@@ -48,7 +48,6 @@ gem 'omniauth-google-oauth2'
 gem 'carrierwave', '~> 1.1.0'
 gem 'carrierwave-base64'
 gem 'mini_magick', '~> 4.3'
-gem 'carrierwave-dropbox'
 
 # for service objects
 gem 'active_interaction', '~> 3.5'
