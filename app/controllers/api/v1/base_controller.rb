@@ -17,7 +17,6 @@ class Api::V1::BaseController < ApplicationController # ActionController::API #A
 
   def permission_denied
     head :unauthorized
-    false
   end
 
   def current_user

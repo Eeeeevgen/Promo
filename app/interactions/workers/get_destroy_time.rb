@@ -13,14 +13,12 @@ module Workers
       end
       if created_time
         time_diff = Sidekiq::DELAYED_DESTROY_TIME - (Time.now - created_time)
-        "#{human_time(time_diff)}"
-      else
-        nil
+        human_time(time_diff)
       end
     end
 
     def human_time(seconds_diff)
-      sign = seconds_diff < 0 ? '-' : ''
+      sign = seconds_diff.negative? ? '-' : ''
 
       seconds_diff = seconds_diff.to_i.abs
       hours = (seconds_diff / 3600)

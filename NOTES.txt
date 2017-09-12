@@ -7,14 +7,7 @@ routes
   - no structured
   - crud not everythong
 
-
 What differences between try and &.
-
-Scopes in admin area + aasm default methods for states + dry
-
-Active admin style with importaint!
-
-Serializer logic simplify
 
 Interction workers
 
@@ -22,11 +15,5 @@ Why .new instead of .create on model? What differences?
 
 Redundant interactions for leaderboard
 
-remote_avatar_url - why do we save it?
-
-render json: nil ???
-
 #############################################################################3
 Strange rubocop.yml file
-Strange code in seeds
-Images controller index action get/post??? + upload action

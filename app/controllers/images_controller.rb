@@ -20,12 +20,10 @@ class ImagesController < ApplicationController
   end
 
   def upload
-    if params[:images]
-      params[:images].each do |image|
-        i = current_user.images.new
-        i.image = image
-        i.save
-      end
+    params[:images].try(:each) do |image|
+      i = current_user.images.new
+      i.image = image
+      i.save
     end
     params[:id] = current_user.id
     redirect_to user_path(current_user.id)

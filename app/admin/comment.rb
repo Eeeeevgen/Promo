@@ -10,7 +10,7 @@ ActiveAdmin.register Comment do
   index do
     selectable_column
     column :id
-    column :text, class: "pre-wrap"
+    column :text, class: 'pre-wrap'
     column :parent do |comment|
       comment.parent.try(:text)
     end

@@ -5,7 +5,7 @@ class Api::V1::UsersController < Api::V1::BaseController
   end
 
   def show
-    user = User.find(params[:id])
+    user = User.find_by(id: params[:id])
     render json: user
   end
 
@@ -30,7 +30,7 @@ class Api::V1::UsersController < Api::V1::BaseController
     render json: { user: user, status: :destroyed }, status: 200
   end
 
-  def token  # { "user": { "email": "123@123.ru", "password": "123123123" } }
+  def token # { "user": { "email": "123@123.ru", "password": "123123123" } }
     user_params = params.require(:user).permit(:email, :password)
 
     @user_session = UserSession.new(user_params)

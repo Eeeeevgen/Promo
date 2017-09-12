@@ -5,12 +5,12 @@ class SessionsController < ApplicationController
 
   def create
     auth_hash = request.env['omniauth.auth']
-    if auth_hash
-      outcome = Sessions::CreateOmniauth.run!(auth_hash: auth_hash,
+    outcome = if auth_hash
+                Sessions::CreateOmniauth.run!(auth_hash: auth_hash,
                                               current_user: current_user)
-    else
-      outcome = Sessions::CreateCommon.run!(params[:user_session])
-    end
+              else
+                Sessions::CreateCommon.run!(params[:user_session])
+              end
 
     flash[outcome[:status]] = outcome[:message]
     if outcome[:status] == :success

@@ -6,17 +6,20 @@ class Api::V1::ImagesController < Api::V1::BaseController
 
   def show
     image = Image.find_by(id: params[:id])
-    if image.accepted? || (current_user && current_user.id == image.user_id)
-      render json: image
+    if image
+      if image.accepted? || (current_user && current_user.id == image.user_id)
+        render json: image
+      else
+        head 401
+      end
     else
-      render json: nil
+      head 404
     end
   end
 
   def create
     authorize [:api, :v1, Image]
     if params[:image]
-      # current_user.images.create(params[:image]) # doesn't work?
       i = current_user.images.new
       i.image = params[:image]
       i.save
@@ -32,5 +35,3 @@ class Api::V1::ImagesController < Api::V1::BaseController
     render json: { image: image, status: :destroyed }
   end
 end
-
-

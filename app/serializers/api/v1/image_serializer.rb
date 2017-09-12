@@ -11,7 +11,7 @@ class Api::V1::ImageSerializer < ActiveModel::Serializer
   end
 
   def owner?
-    user = current_user || scope[:current_user]
+    user = scope[:current_user] || current_user
     user && user.id == object.user_id
   end
 end

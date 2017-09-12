@@ -3,15 +3,14 @@ ActiveAdmin.register Image do
 
   menu priority: 1
 
-  scope proc{ I18n.t('activerecord.scopes.image.uploaded') }, :uploaded
-  scope proc{ I18n.t('activerecord.scopes.image.accepted') }, :accepted
-  scope proc{ I18n.t('activerecord.scopes.image.declined') }, :declined
+  scope proc { I18n.t('activerecord.scopes.image.uploaded') }, :uploaded
+  scope proc { I18n.t('activerecord.scopes.image.accepted') }, :accepted
+  scope proc { I18n.t('activerecord.scopes.image.declined') }, :declined
 
   config.sort_order = 'aasm_state_desc'
 
   batch_action :destroy do |ids|
     ids.each do |id|
-
       LeaderboardI::Delete.run(image_id: id)
       Image.find(id).destroy
     end
@@ -20,9 +19,7 @@ ActiveAdmin.register Image do
 
   member_action :accept, method: :get do
     image = Image.find(params[:id])
-    if image.declined?
-      Workers::DestroyWorker.run(image_id: image.id)
-    end
+    Workers::DestroyWorker.run(image_id: image.id) if image.declined?
     image.accept!
     LeaderboardI::NewImage.run(image_id: image.id, score: image.likes_count)
 
@@ -41,7 +38,7 @@ ActiveAdmin.register Image do
   filter :user, label: proc { User.model_name.human }
   filter :created_at
   filter :updated_at
-  filter :likes_count,  as: :range_select
+  filter :likes_count, as: :range_select
 
   index do
     selectable_column
@@ -65,14 +62,14 @@ ActiveAdmin.register Image do
       unless image.declined?
         item t('active_admin.decline'), decline_admin_image_path(image)
       end
-        item t('active_admin.delete'), admin_image_path(image), method: :delete, 'data-confirm' => 'Are you sure?'
+      item t('active_admin.delete'), admin_image_path(image), method: :delete, 'data-confirm' => 'Are you sure?'
     end
   end
 
   show do
     attributes_table do
       row :id
-      row I18n.t("active_admin.user_name") do
+      row I18n.t('active_admin.user_name') do
         image.user.name
       end
       row :created_at
@@ -83,15 +80,13 @@ ActiveAdmin.register Image do
                                        Image.human_attribute_name('aasm_state/accepted') => :accepted,
                                        Image.human_attribute_name('aasm_state/declined') => :declined }
       row I18n.t('active_admin.time_until_destroyed') do |image|
-        if image.declined?
-          Workers::GetDestroyTime.run!(image_id: image.id)
-        end
+        Workers::GetDestroyTime.run!(image_id: image.id) if image.declined?
       end
       row :likes_count
       row I18n.t('active_admin.leaderboard.rank'), :rank do |image|
         LB.rank_for(image.id)
       end
-      row I18n.t("active_admin.actions"), :admin do |image|
+      row I18n.t('active_admin.actions'), :admin do |image|
         unless image.accepted?
           span do
             link_to t('active_admin.accept'), accept_admin_image_path(image), class: 'custom-button light-button'

@@ -21,13 +21,6 @@ class ApplicationController < ActionController::Base
     # @current_user = current_user_session && current_user_session.user
   end
 
-  def require_admin
-    unless current_user &. admin
-      flash[:danger] = 'Access denied!'
-      redirect_to root_path
-    end
-  end
-
   def username(id)
     User.find(id).name
   end
@@ -59,14 +52,14 @@ class ApplicationController < ActionController::Base
   end
 
   def set_admin_locale
-    I18n.locale = params[:locale] || I18n.default_locale #current_admin_user &. locale ||
+    I18n.locale = params[:locale] || I18n.default_locale
   end
 
-  def default_url_options(options={})
-    if controller_path.split('/').first == 'admin'
-      { :locale => I18n.locale }
-    else
-      {}
-    end
-  end
+  # def default_url_options
+  #   if controller_path.split('/').first == 'admin'
+  #     { locale: I18n.locale }
+  #   else
+  #     {}
+  #   end
+  # end
 end

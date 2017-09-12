@@ -4,12 +4,12 @@ ActiveAdmin.setup do |config|
   # Set the title that is displayed on the main layout
   # for each of the active admin pages.
   #
-  config.site_title = "Promo"
+  config.site_title = 'Promo'
 
   # Set the link url for the title. For example, to take
   # users to your main site. Defaults to no link.
   #
-  config.site_title_link = "/"
+  config.site_title_link = '/'
 
   # Set an optional image to be displayed for the header
   # instead of a string (overrides :site_title)
@@ -293,12 +293,11 @@ ActiveAdmin.setup do |config|
 
   config.before_action :set_admin_locale
 
-
   config.namespace :admin do |admin|
     admin.build_menu :utility_navigation do |menu|
       menu.add label: proc { I18n.t('active_admin.language') }, id: 'menu', priority: 1 do |lang|
-        lang.add label: proc { I18n.t('active_admin.english') }, url: proc { url_for(:locale => 'en') }, id: 'i18n-en', priority: 1
-        lang.add label: proc { I18n.t('active_admin.russian') }, url: proc { url_for(:locale => 'ru') }, id: 'i18n-ru', priority: 2
+        lang.add label: proc { I18n.t('active_admin.english') }, url: proc { url_for(locale: 'en') }, id: 'i18n-en', priority: 1
+        lang.add label: proc { I18n.t('active_admin.russian') }, url: proc { url_for(locale: 'ru') }, id: 'i18n-ru', priority: 2
       end
       menu.add label: proc { display_name current_active_admin_user },
                url: '#',
