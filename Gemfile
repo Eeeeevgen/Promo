@@ -46,8 +46,8 @@ gem 'omniauth-google-oauth2'
 
 # image uploading and modifying
 gem 'carrierwave', '~> 1.1.0'
-gem 'carrierwave-base64'
 gem 'mini_magick', '~> 4.3'
+gem 'cloudinary'
 
 # for service objects
 gem 'active_interaction', '~> 3.5'
@@ -77,9 +77,6 @@ gem 'kaminari-bootstrap'
 
 # for admin users
 gem 'devise'
-
-# using amazon s3
-gem 'fog-aws'
 
 # for background processing
 gem 'sidekiq'
