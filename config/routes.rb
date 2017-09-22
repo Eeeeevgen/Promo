@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+  # get '/admin/rebuild_lb', to: ''
 
   resources :users, only: %i[new create show edit update]
   resources :user_sessions, only: %i[create destroy]
