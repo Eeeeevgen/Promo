@@ -8,7 +8,7 @@ ActiveAdmin.register_page I18n.t('active_admin.leaderboard.name') do
   end
 
   action_item do
-    link_to 'Rebuild leaderboard', admin_leaderboard_rebuild_path
+    link_to I18n.t('active_admin.leaderboard.rebuild_button'), admin_leaderboard_rebuild_path
   end
 
   page_action :rebuild, method: :get do
@@ -21,6 +21,6 @@ ActiveAdmin.register_page I18n.t('active_admin.leaderboard.name') do
       LB.rank_member(image.id, image.likes_count)
     end
 
-    redirect_to admin_leaderboard_path, notice: "Leaderboard has been rebuilt"
+    redirect_to admin_leaderboard_path, notice: I18n.t('active_admin.leaderboard.rebuild_message')
   end
 end

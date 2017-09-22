@@ -20,6 +20,8 @@ ru:
       id: 'Id'
       rank: 'Место'
       user: 'Пользователь'
+      rebuild_button: 'Пересоздать таблицу'
+      rebuild_message: 'Таблица лидеров пересоздана'
 
     dashboard: "Панель управления"
     dashboard_welcome:

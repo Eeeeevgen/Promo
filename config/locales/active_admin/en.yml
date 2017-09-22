@@ -20,6 +20,8 @@ en:
       id: 'Id'
       rank: 'Rank'
       user: 'User'
+      rebuild_button: 'Rebuild leaderboard'
+      rebuild_message: 'Leaderboard has been rebuilt'
 
     dashboard: "Dashboard"
     dashboard_welcome:
